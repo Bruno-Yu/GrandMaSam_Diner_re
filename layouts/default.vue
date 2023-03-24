@@ -2,27 +2,27 @@
   <div class="default-layout relative">
     <!-- front navbar -->
     <nav class="
-                      absolute
-                      let-0
-                      right-0
-                      top-0
-                      h-[85px]
-                      w-full
-                      flex flex-wrap
-                      items-center
-                      justify-between
-                      py-4
-                      bg-white/0
-                      text-gray-500
-                      transition ease-in-out delay-250  -translate-y-[60px] 
-                      hover:translate-y-0
-                      hover:bg-white/99
-                      hover:cursor-pointer
-                      focus:translate-y-0
-                      hover:bg-white/95
-                      navbar navbar-expand-lg navbar-light
-                      z-50
-                      ">
+          fixed
+          let-0
+          right-0
+          top-0
+          h-[85px]
+          w-full
+          flex flex-wrap
+          items-center
+          justify-between
+          py-4
+          bg-white/0
+          text-gray-500
+          transition ease-in-out delay-250  -translate-y-[60px] 
+          hover:translate-y-0
+          hover:bg-white/99
+          hover:cursor-pointer
+          focus:translate-y-0
+          hover:bg-white/95
+          navbar navbar-expand-lg navbar-light
+          z-50
+          ">
       <div class="container-fluid w-full flex flex-wrap items-center px-6">
         <button class="
               navbar-toggler
@@ -52,7 +52,7 @@
                   mr-auto
                 " to="/" exact-active-class="no-active">
             <p class="text-gray-900 text-3xl font-serif">GRANDMA SAM DINER</p>
-            <p class="text-gray-900 text-base text-center font-serif"> LET MAKE AMERICA GREAT AGAIN</p>
+            <p class=" text-gray-900 text-base text-center font-serif"> LET MAKE AMERICA GREAT AGAIN</p>
           </NuxtLink>
           <!-- Left links -->
           <ul class="navbar-nav flex flex-col pl-0 list-style-none ms-auto">

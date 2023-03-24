@@ -29,11 +29,35 @@
         </div>
       </div>
     </section>
-    <section class="bg-white h-screen p-10 pt-1">
-      <div class="w-2/5 my-auto relative">
-        <div class="rounded-full  w-[565px] h-[565px] bg-stone-900 -translate-y-12 translate-x-[75px]"></div>
+    <section class="bg-white flex h-1/2 p-10 pt-1">
+      <div class="flex flex-col  w-2/5 my-auto relative">
+        <div class="rounded-full  w-[565px] h-[565px] bg-black -translate-y-12 translate-x-[75px]"></div>
         <!-- <img class="block w-full h-auto object-cover scale-[1.35]  img-filter" src="@/assets/images/index_product_intro_rotate.png" alt="index_product_intro_1"> -->
         <img class="absolute top-0  w-full h-auto object-cover animate-rotate " src="@/assets/images/index_product_intro_rotate.png" alt="index_product_rotate">
+        <div class=" mt-auto flex justify-center">
+            <img class="h-10 w-auto" src="@/assets/images/chilli.png" alt="chilli"> <p class="font-bold">今日特色醬汁是:</p> <div class=" border-gray-100 border shadow-inner  h-10 w-[150px] align-middle bg-amber-50 ml-1 whitespace-nowrap overflow-hidden px-2">
+            <span class="text-stone-600 font-bold  marqueeStyle inline-block align-middle">胡錦醬  維尼醬  蜜汁和風醬  川辣醬  sakura醬  穿普醬  穿幫醬  胡錦醬  維尼醬  蜜汁和風醬  川辣醬  sakura醬  穿普醬  穿幫醬  胡錦醬  維尼醬  蜜汁和風醬  川辣醬  sakura醬  穿普醬  穿幫醬</span> 
+          </div> 
+        </div>
+      </div>
+      <div class="w-3/5 grid grid-cols-2 gap-4 mt-10">
+        <div class="shadow-lg p-1.5">
+          <div class="relative p-10 bg-[url('@/assets/images/diner_1.webp')] border border-gray-300 bg-cover h-full">
+            <div class="absolute top-0 bottom-0 left-0 right-0 bg-black/60 py-10  px-20 cursor-pointer hover:invisible">
+              <h3 class="mt-5 mb-10 font-bold text-3xl text-amber-400 text-center">關於我們</h3>
+              <p class="leading-loose font-medium text-white">我們與各大連鎖超商合作，推出義大利麵，燉飯，炸雞及各式炸物小點系列，絕對難以滿足味蕾挑剔的您 </p>
+            </div>
+          </div>
+        </div>
+          <div class="shadow-lg p-1.5">
+            <div class="relative p-10 bg-[url('@/assets/images/diner_2.webp')] border border-gray-300 bg-cover h-full">
+              <div class="absolute top-0 bottom-0 left-0 right-0 bg-black/60 py-10  px-20 cursor-pointer hover:invisible">
+                <h3 class="mt-5 mb-10 font-bold text-3xl text-amber-400 text-center">味道獨特</h3>
+                          <p  class="leading-loose font-medium text-white"> 本集團訴求的是夢想，並不只是單純的餐飲品牌，所以我們販售給我們貴賓的餐點都有一份夢想的味道</p>
+              </div>
+          </div>
+          
+        </div>
       </div>
     </section>
   </div>
@@ -46,10 +70,15 @@ import atrApi from '@/assets/js/api/atrApi.js';
 import { useApiModal } from '~~/composables/useApiModal';
 import useStore from '@/store';
 import { storeToRefs } from 'pinia';
+import gsap from 'gsap';
+// import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
 export default {
   setup() {
     // const store = userStore();
+    // gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
     const { userStore } = useStore();
     const { messageContent } = storeToRefs(userStore);
     const { hideInfoModal, infoModal } = useApiModal();
@@ -72,6 +101,12 @@ export default {
 
     onMounted(() => {
       getCart();
+      gsap.to('.marqueeStyle', {
+        xPercent: "-50",
+        ease: "none",
+        duration: 18,
+        repeat: -1
+      })
     });
 
     return {
