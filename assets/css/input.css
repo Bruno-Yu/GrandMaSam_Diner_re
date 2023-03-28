@@ -2,7 +2,90 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'cubic-11';
+  src: url('@/assets/fonts/Cubic_11_1.013_R.ttf');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'chiron-hai';
+  src: url('@/assets/fonts/ChironHeiHK-EL.ttf');
+  font-weight: 200;
+}
+@font-face {
+  font-family: ChironHaiHK;
+  src: url('@/assets/fonts/ChironHeiHK-EL-It.ttf');
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: ChironHaiHK;
+  src: url('@/assets/fonts/ChironHeiHK-L.ttf');
+  font-weight: 300;
+}
+@font-face {
+  font-family: ChironHaiHK;
+  src: url('@/assets/fonts/ChironHeiHK-L-It.ttf');
+  font-weight: 300;
+  font-style: italic;
+}
+
+
+@font-face {
+  font-family: ChironHaiHK;
+  src: url('@/assets/fonts/ChironHeiHK-R.ttf');
+  font-weight: 400;
+}
+@font-face {
+  font-family: ChironHaiHK;
+  src: url('@/assets/fonts/ChironHeiHK-R-It.ttf');
+  font-weight:400;
+  font-style: italic;
+}
+@font-face {
+  font-family: ChironHaiHK;
+  src: url('@/assets/fonts/ChironHeiHK-M.ttf');
+  font-weight: 400;
+}
+@font-face {
+  font-family: ChironHaiHK;
+  src: url('@/assets/fonts/ChironHeiHK-M-It.ttf');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: ChironHaiHK;
+  src: url('@/assets/fonts/ChironHeiHK-SB.ttf');
+  font-weight: 600;
+}
+@font-face {
+  font-family: ChironHaiHK;
+  src: url('@/assets/fonts/ChironHeiHK-SB-It.ttf');
+  font-weight: 600;
+  font-style: italic;
+}
+
+
+@font-face {
+  font-family: ChironHaiHK;
+  src: url('@/assets/fonts/ChironHeiHK-B.ttf');
+  font-weight: 700;
+}
+@font-face {
+  font-family: ChironHaiHK;
+  src: url('@/assets/fonts/ChironHeiHK-B-It.ttf');
+  font-weight: 700;
+  font-style: italic;
+}
+
+
+
+
 @layer base {
+  html{
+    font-family: ChironHaiHK, system-ui, sans-serif;
+  }
   /* main {
     padding: 0,
   } */

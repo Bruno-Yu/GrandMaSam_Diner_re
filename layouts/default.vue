@@ -66,7 +66,7 @@
             </li>
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-gray-500 text-base hover:text-amber-400 focus:text-amber-400 p-0"
-                to="/frontStage/attractionsView"><i class="bi bi-flag"></i> 挑戰 </NuxtLink>
+                to="/frontStage/challengesView"><i class="bi bi-flag"></i> 挑戰 </NuxtLink>
             </li>
             <!-- <li class="nav-item p-2">
             <RouterLink class="nav-link text-gray-500 hover:text-amber-400 focus:text-amber-400 p-0" to="shoppingCart">購物車

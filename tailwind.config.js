@@ -10,7 +10,7 @@ module.exports = {
   ],
   theme: {
       fontFamily: {
-        'sans': [ '"Noto Sans JP"', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', "Arial", '"Noto Sans"', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"', '"Noto Color Emoji"'],
+        'sans': [ 'ChironHaiHK','"Noto Sans JP"', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', "Arial", '"Noto Sans"', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"', '"Noto Color Emoji"'],
         'serif': ['Bangers', 'ui-serif', 'Georgia', 'Cambria', "Times New Roman", 'Times', 'serif'],
         'mono': ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", 'monospace'],
       },
@@ -28,5 +28,6 @@ module.exports = {
   },
   plugins: [
     require('tw-elements/dist/plugin'),
+    require('@tailwindcss/forms'),
   ],
 }

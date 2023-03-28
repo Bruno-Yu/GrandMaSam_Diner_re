@@ -55,7 +55,7 @@ export default defineNuxtConfig({
   // typescript: {
   //   typeCheck: true
   // },
-  modules: ['@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt', '@nuxtjs/tailwindcss'],
+  modules: ['@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt', '@nuxtjs/tailwindcss', 'nuxt-swiper'],
   // buildModules: ['@nuxtjs/dotenv'],
 
   plugins: [
