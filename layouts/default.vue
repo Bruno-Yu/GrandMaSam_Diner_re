@@ -162,6 +162,7 @@
     </nav>
     <!-- 內容 -->
     <div class="w-full">
+      <toastMessages />
       <slot />
     </div>
     <!-- footer -->

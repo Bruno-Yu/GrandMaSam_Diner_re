@@ -9,6 +9,7 @@ export const userStore = defineStore('userStore', {
     login: false, // 是否是登入狀態
     adminProducts: [],
     currentItem: {},
+    toastMessages: [],
     messageContent: {
       title: '提示',
       message: '',
