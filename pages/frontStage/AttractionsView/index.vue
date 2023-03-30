@@ -7,7 +7,7 @@
         <div class="flex flex-col pt-28 px-20">
           <h2 class="text-4xl font-bold text-stone-700 mb-4">產品/服務列表</h2>
           <h3 class="text-2xl  font-bold text-stone-700 mb-4">廚師介紹</h3>
-          <p class="leading-loose leading-loose font-bold">五腥出品，來自嘉義明雄的米其林廚師帶來的味道<br>而每份他所帶來的食物，都有屬於食材自己的故事<br>只要您用心品嘗，一定能嚐出嘉明( 嘉義民雄 )的味道</p>
+          <p class="leading-loose  font-bold">五腥出品，來自嘉義明雄的米其林廚師帶來的味道<br>而每份他所帶來的食物，都有屬於食材自己的故事<br>只要您用心品嘗，一定能嚐出嘉明( 嘉義民雄 )的味道</p>
         </div>
         <img class="block w-full h-[450px] object-cover"  src="@/assets/images/productsView_banner.webp" alt="productsView_banner">
       </div>
@@ -16,7 +16,7 @@
         <li v-for="item in categories" :key="item" class="border bg-white border-gray-300 px-3 py-1.5 whitespace-nowrap rounded text-center shadow"><button type="button" class="font-bold text-xl" >{{ item }}</button></li>
       </ul> -->
       <!-- swiper -->
-      <div class="px-10  bg-stone-900  px-12 py-5">
+      <div class="px-10  bg-stone-900 py-5">
         <swiper
           :slidesPerView="5"
           :spaceBetween="25"
@@ -119,9 +119,7 @@ import { FreeMode, Navigation } from 'swiper';
 // Import Swiper styles
 // import 'swiper/css';
 import '@/assets/styles/categories/swiper.scss';
-
 import 'swiper/css/free-mode';
-// import 'swiper/css/navigation';
 import '@/assets/styles/categories/navigation.scss';
 
 

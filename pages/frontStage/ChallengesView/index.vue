@@ -4,6 +4,7 @@
       <!-- card -->
       <div v-for="(item, index) in challengeListData" :key="item.code" class="relative bg-stone-800 flex flex-col h-[700px]" >
         <img  class="absolute  block duration-700 delay-100 ease-out hover: w-full h-full object-cover shadow-black shadow-lg"  :class="{ '-translate-y-1/2': toggleStatus[index] }" :src="item.imgSrc" :alt="item.alt"  @click="toggleStatus[index] = !toggleStatus[index]">
+          <button type="button" class="absolute top-1/3 left-1/2 -translate-x-1/2  bg-white/30  h-12 w-12 rounded-full animate-bounce " :class="{ 'hidden': !toggleStatus[index] }"  @click="toggleStatus[index] = !toggleStatus[index]"><i class="bi bi-chevron-double-down text-white "></i></button>
           <button type="button" class="absolute bottom-1 left-1/2 -translate-x-1/2  bg-white/30  h-12 w-12 rounded-full animate-bounce" :class="{ 'hidden': toggleStatus[index] }"  @click="toggleStatus[index] = !toggleStatus[index]"><i class="bi bi-chevron-double-up text-white "></i></button>
         <div class="mt-auto bg-black p-5 min-h-1/2">
           <div class="bg-white/10 p-5">
@@ -89,26 +90,17 @@ export default {
     // 複製進剪貼簿 
     async function copyTocClipboard(content) {
       await navigator.clipboard.writeText(content);
-    }
-    onMounted(() => {
-      // console.log('ClipboardJS ', ClipboardJS);
-      challengeListData.forEach(() => toggleStatus.value.push(false));
       userStore.$patch((state) => {
         const message = {
-          title: '更新',
-          content: '成功顯示',
+          title: '提示',
+          content: '複製成功',
           style: 'success',
         }
         state.toastMessages.push(message);
-        state.toastMessages.push(message);
-        state.toastMessages.push(message);
       })
-      // challengeListData.forEach(function (item, index) {
-      //   //  加入每個按鈕的狀態
-      //   toggleStatus.value.push(false)
-      //   // clipboardList.value[item.code] = new ClipboardJS(`#${item.code}`);
-      // });
-      // console.log(clipboardList.value);
+    }
+    onMounted(() => {
+      challengeListData.forEach(() => toggleStatus.value.push(false));
     });
 
     return {

@@ -50,7 +50,7 @@
                   mt-2
                   lg:mt-0
                   mr-auto
-                " to="/" exact-active-class="no-active">
+                " to="/" exact-active-class="no-active"  @click.prevent="closeCartDropdown">
             <p class="text-gray-900 text-3xl font-serif">GRANDMA SAM DINER</p>
             <p class=" text-gray-900 text-base text-center font-serif"> LET MAKE AMERICA GREAT AGAIN</p>
           </NuxtLink>
@@ -58,46 +58,46 @@
           <ul class="navbar-nav flex flex-col pl-0 list-style-none ms-auto">
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-gray-500  text-base hover:text-amber-400 focus:text-amber-400 p-0"
-                to="/frontStage"><i class="bi bi-journals"></i> 故事 </NuxtLink>
+                to="/frontStage" @click.prevent="closeCartDropdown"><i class="bi bi-journals"></i> 故事 </NuxtLink>
             </li>
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-gray-500 text-base hover:text-amber-400 focus:text-amber-400 p-0"
-                to="/frontStage/attractionsView"><i class="bi bi-shop"></i> 商店 </NuxtLink>
+                to="/frontStage/attractionsView"  @click.prevent="closeCartDropdown"><i class="bi bi-shop"></i> 商店 </NuxtLink>
             </li>
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-gray-500 text-base hover:text-amber-400 focus:text-amber-400 p-0"
-                to="/frontStage/challengesView"><i class="bi bi-flag"></i> 挑戰 </NuxtLink>
+                to="/frontStage/challengesView" @click.prevent="closeCartDropdown"><i class="bi bi-flag"></i> 挑戰 </NuxtLink>
             </li>
             <!-- <li class="nav-item p-2">
             <RouterLink class="nav-link text-gray-500 hover:text-amber-400 focus:text-amber-400 p-0" to="shoppingCart">購物車
             </RouterLink>
           </li> -->
             <li class="nav-item  p-2 dropdown relative">
-              <a class="dropdown-toggle pr-2 lg:px-2 py-2 text-base text-gray-500 hover:text-amber-400 focus:text-amber-400 transition duration-150 ease-in-out dropdown-toggle flex items-center whitespace-nowrap"
+              <a class="dropdown-toggle pr-2 lg:px-2 py-2 text-base text-gray-500 hover:text-amber-400 focus:text-amber-400 transition duration-150 ease-in-out flex items-center whitespace-nowrap"
                 href="#" type="button" id="dropdownMenuButton1" aria-expanded="false"
                 @click.prevent="toggleCartDropdown"><i class="bi bi-suit-heart"></i> <span class="pl-1">收藏</span>
               </a>
               <div ref="cartDropdown" class="
-                              dropdown-menu
-                              min-w-max
-                              absolute
-                              bg-white
-                              text-base
-                              hidden
-                              z-50
-                              w-[20rem]
-                              top-10
-                              left-[-10rem]
-                              p-4
-                              list-none
-                              text-left
-                              rounded-sm
-                              shadow-lg
-                              mt-1
-                              m-0
-                              bg-clip-padding
-                              border-none
-                            " aria-labelledby="dropdownMenuButton2">
+                dropdown-menu
+                min-w-max
+                absolute
+                bg-white
+                text-base
+                hidden
+                z-50
+                w-[20rem]
+                top-10
+                left-[-10rem]
+                p-4
+                list-none
+                text-left
+                rounded-sm
+                shadow-lg
+                mt-1
+                m-0
+                bg-clip-padding
+                border-none
+              " aria-labelledby="dropdownMenuButton2">
                 <h3 class="text-center my-2 text-base">購物車</h3>
                 <div v-if="cartProducts">
                   <ul class="border rounded p-2">
@@ -142,15 +142,15 @@
             </RouterLink> -->
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-base text-gray-500 hover:text-amber-400 focus:text-amber-400 p-0"
-                to="/frontStage/ordersView"><i class="bi bi-bag"></i> 訂購 </NuxtLink>
+                to="/frontStage/ordersView"  @click.prevent="closeCartDropdown"><i class="bi bi-bag"></i> 訂購 </NuxtLink>
             </li>
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-base text-gray-500 hover:text-amber-400 focus:text-amber-400 p-0"
-                to="/frontStage/ordersView"><i class="bi bi-megaphone"></i> 公告 </NuxtLink>
+                to="/frontStage/billboardView" @click.prevent="closeCartDropdown"><i class="bi bi-megaphone"></i> 公告 </NuxtLink>
             </li>
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-base text-gray-500 hover:text-amber-400 focus:text-amber-400 p-0"
-                to="/frontStage/loginView"><i class="bi bi-person"></i> 登入 </NuxtLink>
+                to="/frontStage/loginView" @click.prevent="closeCartDropdown"><i class="bi bi-person"></i> 登入 </NuxtLink>
             </li>
             <!-- <li class="nav-item p-2">
             <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" href="#">註冊</a>
@@ -246,6 +246,14 @@ const { getCart, cartProducts, finalTotal, deleteCartProduct } = useApiModal();
 const cartDropdown = ref(null);
 function toggleCartDropdown() {
   cartDropdown.value.classList.toggle('hidden');
+}
+
+function closeCartDropdown() {
+  if (cartDropdown.value.classList.contains('hidden')) {
+    return;
+  } else {
+    cartDropdown.value.classList.add('hidden');
+  }
 }
 
 //     // const router = useRouter();
