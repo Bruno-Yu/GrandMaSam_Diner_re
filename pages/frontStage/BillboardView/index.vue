@@ -16,26 +16,28 @@
       <div class="relative flex flex-col justify-center px-10 z-20">
         <p class="text-2xl font-[800] italic leading-10  mb-2">我們深信信教一事，不宜於喧嘩，不宜於妄自尊大，不宜於說大話；<br>卻應是一件平心靜氣，溫文儒雅，但也堅決毫不妥協的事情。</p>
         <p class="text-sm text-gray-600 italic"> - 2020 / 5 / 28 拜燈教主 </p>
-        <div class="flex justify-end mt-5 pr-28">
-          <button type="button" class="block bg-black -skew-x-12 text-white font-bold py-4 px-8 shadow-amber-400"> 最新消息公告 </button>
+        <div class="flex justify-end items-center mt-5 pr-28">
+          <i class="inline-block mr-6 animate-ping bi bi-arrow-right-circle-fill text-neutral-950 z-10"></i>
+          <button type="button" class="relative block bg-black -skew-x-12 text-white font-bold py-4 px-8 shadow-amber-400" @click.prevent="btnStatus = !btnStatus"> 最新消息公告 </button>
         </div>
+        <p class="text-right text-xs pr-32 text-neutral-600 mt-2">點擊看更多</p>
       </div>
     </section>
     <!-- 公告 swiper -->
-    <section>
-      <div class="px-10  bg-stone-900 py-5">
+    <section class="bg-white relative overflow-hidden transition-[height] duration-700 ease-in-out" :class="{ 'h-[220px]': btnStatus, 'overflow-visible': btnStatus }" >
+      <div class="absolute bottom-0 left-0 right-0 min-h-[200px] px-10  bg-black/90 py-5 z-40 " >
         <swiper
           :slidesPerView="5"
           :spaceBetween="25"
           :navigation="true"
-          :freeMode="true"
+          :autoplay="true"
           :pagination="{
             clickable: true,
           }"
           :modules="modules"
           class="swiper"
         >
-      <swiper-slide  v-for="item in articles" :key="item.id" class="border bg-white border-gray-300 whitespace-nowrap rounded text-center shadow"><button type="button" class=" bg-white font-bold px-3 py-1.5 text-xl" >{{ item.title }}</button></swiper-slide>
+      <swiper-slide  v-for="item in articles" :key="item.id" class="border bg-white border-gray-300 whitespace-nowrap rounded text-center shadow  brightness-50 hover:brightness-100 hover:z-50  "> <NuxtLink class="block relative h-[200px]  w-full hover:h-[600px] hover:w-[700px]  duration-700 ease-in-out" to="#"><img :src="getArticlePic(item.id)" class="absolute img-fluid block object-cover h-full w-full "  :alt="item.title" /> <p class="absolute block bottom-2 left-1 font-bold text-white px-3 bg-black/60">{{ item.title }} </p></NuxtLink> </swiper-slide>
     </swiper>
       </div>
     </section>
@@ -44,7 +46,7 @@
 <script>
 import atrApi from '@/assets/js/api/atrApi.js';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
-import { FreeMode, Navigation } from 'swiper';
+import { Autoplay, Navigation } from 'swiper';
 
 // Import Swiper styles
 // import 'swiper/css';
@@ -90,23 +92,28 @@ export default {
 
     const articles = ref([]);
     const pagination = ref([]);
+    const btnStatus = ref(false);
     function getArticlePic(id) {
-      return articlesPics.filter((ele) => ele.id === id).image;
+      return articlesPics.filter((ele) => ele.id === id)[0].image;
     }
     async function getArticles() {
       const res = await atrApi.getArticles();
       if (res.success) {
-        articles.value = res.data.articles;
-        pagination.value = res.data.pagination;
+        articles.value = res.articles;
+        pagination.value = res.pagination;
       }
     }
     onMounted(() => getArticles());
 
     return {
-      modules: [Navigation, FreeMode],
+      btnStatus,
+      articles,
+      pagination,
+      modules: [Navigation, Autoplay],
       getArticles,
       getArticlePic,
     }
   }
 }
 </script>
+
