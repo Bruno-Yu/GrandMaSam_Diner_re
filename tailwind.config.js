@@ -17,6 +17,7 @@ module.exports = {
     extend: {
         animation: {
         'rotate': 'rotate 60s linear infinite',
+        'rotate-faster': 'rotate 10s linear infinite',
       },
       keyframes: {
         rotate: {
