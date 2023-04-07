@@ -1,32 +1,31 @@
 <template>
-  <main class="vl-parent">
+  <main class="border">
     <div class="grid gap-2 grid-cols-1 xl:grid-cols-2">
       <div class="flex flex-col mb-8 xl:mb-0">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="py-4 inline-block min-w-full sm:px-6 lg:px-8">
-            <div class="flex justify-end mb-5">
+            <!-- <div class="flex justify-end mb-5">
               <button type="button"
-                class="inline-block px-6 py-2 border-2 border-gray-800 text-gray-800 text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out font-bold"
+                class="inline-block px-6 py-2 bg-amber-400 text-black text-xs leading-tight uppercase rounded hover:bg-black hover:text-amber-400 focus:outline-none focus:ring-0 transition duration-150 ease-in-out font-bold"
                 @click="openNewModal">新增產品</button>
-            </div>
+            </div> -->
             <div class="overflow-hidden border border-solid border-gray-300">
-              <!-- {{ data }} -->
               <table class="min-w-full text-center ">
-                <thead class="border-b bg-gray-800">
+                <thead class="border-b bg-black">
                   <tr>
-                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-2">
                       產品名稱
                     </th>
-                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-2">
                       原價
                     </th>
-                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-2">
                       售價
                     </th>
-                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-2">
                       是否啟用
                     </th>
-                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-2">
                       查看細節
                     </th>
                   </tr>
@@ -70,17 +69,50 @@
                   </tr>
                 </tbody>
               </table>
+                  <!-- pagination -->
+      <div class="flex justify-end my-3">
+        <nav aria-label="Page navigation">
+          <ul class="list-style-none flex">
+            <li :class="{ 'hidden': !pagination.has_pre }">
+              <a
+                class="relative block rounded bg-transparent py-1.5 px-3 text-lg text-neutral-600 transition-all duration-300 hover:bg-amber-400 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                href="#"
+                aria-label="Previous" @click.prevent="getProducts(page = pagination.current_page - 1, category = '')">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li v-for="page in pagination.total_pages" :key="page">
+              <a
+                class="relative block rounded bg-transparent py-1.5 px-3 text-lg text-neutral-600 transition-all duration-300 hover:bg-amber-400 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                :class="{ 'bg-amber-400': page === pagination.current_page }"
+                href="#"
+                @click.prevent="getProducts(page, category = '')"
+                >{{ page }}</a
+              >
+            </li>
+            <li :class="{ 'hidden': !pagination.has_next }">
+              <a
+                class="relative block rounded bg-transparent py-1.5 px-3 text-lg text-neutral-600 transition-all duration-300 hover:bg-amber-400 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                href="#"
+                aria-label="Next"  @click.prevent="getProducts(page = pagination.current_page + 1, category = '')"
+                ><span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        </div>
             </div>
           </div>
         </div>
         <p class="font-semibold">目前有產品 {{ Object.keys(adminProducts).length }} 項</p>
       </div>
-      <div>
-        <h2 class="text-4xl mb-5 font-bold">詳情如下</h2>
-        <div v-if="Object.keys(currentItem).length > 0" class="flex justify-center">
-          <div class="flex flex-col md:flex-row rounded-lg bg-white shadow-lg">
-            <img class=" w-full h-96 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg"
+      <div  class="p-4">
+        <div v-if="Object.keys(currentItem).length > 0" class="flex flex-col justify-center">
+          <div class=" rounded mb-5">
+            <img class=" w-full h-96 object-cover rounded "
               :src="currentItem.imageUrl" :alt="currentItem.title" />
+          </div>
+          <div class="flex flex-col  rounded mb-5 bg-white shadow-lg">
             <div class="p-6 flex flex-col justify-start">
               <h5 class="text-gray-900 text-xl font-medium mb-2">{{ currentItem.title }}</h5>
               <div class="text-gray-700 text-base mb-2">
@@ -95,13 +127,13 @@
               </p>
               <p>{{ currentItem.price }}/{{ currentItem.unit }} <span
                   class="text-gray-600 text-xs">還剩{{ currentItem.num }}個</span> </p>
-              <div v-if="currentItem.imagesUrl?.length" class="grid gap-1 grid-rows-1 grid-cols-3 shadow-lg">
+                </div>
+              </div>
+              <div v-if="currentItem.imagesUrl?.length" class="grid gap-2 grid-rows-1 grid-cols-5  rounded bg-white shadow-lg">
                 <img v-for="(item, index) in currentItem.imagesUrl" :key="index" class="h-40 w-40 block object-cover"
                   :src="item" :alt="item">
               </div>
               <div v-else></div>
-            </div>
-          </div>
         </div>
         <p v-else class="text-gray-600">請選擇單一產品查看</p>
       </div>
@@ -125,9 +157,10 @@ export default {
     definePageMeta({
       layout: 'back-layout'
     });
+    // const pagination = ref([]);
     const { userStore } = useStore();
     const { adminProducts, currentItem, messageContent } = storeToRefs(userStore);
-    const { editModal, infoModal, hideInfoModal, isNew, openDeleteModal, openModal, hideModal, openNewModal, editAdminProduct, addAdminProduct, getAdminProducts, deleteAdminProduct } = useApiModal();
+    const { pagination, editModal, infoModal, hideInfoModal, isNew, openDeleteModal, openModal, hideModal, openNewModal, editAdminProduct, addAdminProduct, getAdminProducts, deleteAdminProduct } = useApiModal();
     function check(prop) {
       // console.log('prop', prop);
       userStore.$patch({ currentItem: prop });
@@ -156,6 +189,7 @@ export default {
       editAdminProduct,
       addAdminProduct,
       deleteAdminProduct,
+      pagination,
     };
   }
 }

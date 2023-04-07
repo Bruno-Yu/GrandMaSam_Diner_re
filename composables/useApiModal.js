@@ -132,14 +132,16 @@ export const useApiModal = () => {
     }
     userStore.$patch({ token: '', login: false })
   }
-
+  const pagination = ref([]);
   // 管理員取得產品資料
-  async function getAdminProducts() {
-    loaderShow()
-    const res = await atrApi.getAdminProducts()
+  async function getAdminProducts(page=1, category) {
+    loaderShow();
+    const params =  category?{page,category}:{page};
+    const res = await atrApi.getAdminProducts(params);
     if (res.success) {
       // console.log(res.products)
       loaderHide()
+      pagination.value = JSON.parse(JSON.stringify(res.pagination));
       userStore.$patch((state) => {
         state.adminProducts = res.products
       })
@@ -294,6 +296,7 @@ export const useApiModal = () => {
     cartProducts,
     finalTotal,
     totalQty,
-    deleteCartProduct
+    deleteCartProduct,
+    pagination,
   }
 }
