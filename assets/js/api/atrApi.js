@@ -98,10 +98,10 @@ class atrApi extends Api {
 
   // admin 取得產品
   static async getAdminProducts({page, category}) {
-    const params = {
-      page, category
-    }
-    const res = await this.callAxios('GET', `${apiPrefix}api/${apiPath}/admin/products`, params, undefined, undefined, true);
+        const queryPage = `?page=${page}`;
+    const queryCategory = category? `?category=${category}`: '';
+    // console.log('getAdminProducts params', params)
+    const res = await this.callAxios('GET', `${apiPrefix}api/${apiPath}/admin/products${queryPage}${queryCategory}`, null, undefined, undefined, true);
     return res;
   }
 

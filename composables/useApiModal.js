@@ -132,7 +132,7 @@ export const useApiModal = () => {
     }
     userStore.$patch({ token: '', login: false })
   }
-  const pagination = ref([]);
+  const pagination = ref({});
   // 管理員取得產品資料
   async function getAdminProducts(page=1, category) {
     loaderShow();
@@ -146,6 +146,7 @@ export const useApiModal = () => {
         state.adminProducts = res.products
       })
     } else {
+      loaderHide()
       if (typeof res.response.data.message === 'string') {
         userStore.$patch((state) => {
           state.messageContent.message = res.response.data.message
