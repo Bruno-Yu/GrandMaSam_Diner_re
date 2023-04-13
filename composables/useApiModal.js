@@ -133,17 +133,30 @@ export const useApiModal = () => {
     userStore.$patch({ token: '', login: false })
   }
   const pagination = ref({});
-  // 管理員取得產品資料
-  async function getAdminProducts(page=1, category) {
+
+
+  // 管理
+   // 管理員取得資料
+  async function getAdminShown(page=1, category) {
     loaderShow();
-    const params =  category?{page,category}:{page};
-    const res = await atrApi.getAdminProducts(params);
+    const params =  category ? { page, category } : { page };
+    let res;
+    if(userStore.currentPosition === '/backStage/billboardAdmin'){
+      res = await atrApi.getAdminArticles(params);
+    } else if(userStore.currentPosition === '/backStage'){
+      res = await atrApi.getAdminProducts(params);
+    }
+    // const res = await atrApi.getAdminArticles(params);
     if (res.success) {
       // console.log(res.products)
       loaderHide()
       pagination.value = JSON.parse(JSON.stringify(res.pagination));
       userStore.$patch((state) => {
-        state.adminProducts = res.products
+        if(userStore.currentPosition === '/backStage/billboardAdmin'){
+      state.adminShown = JSON.parse(JSON.stringify(res.articles));
+    } else if(userStore.currentPosition === '/backStage'){
+        state.adminShown = JSON.parse(JSON.stringify(res.products));
+    }
       })
     } else {
       loaderHide()
@@ -159,19 +172,21 @@ export const useApiModal = () => {
     }
     loaderHide()
   }
-
-  // 新增產品
-  async function addAdminProduct(data) {
-    loaderShow()
-    const res = await atrApi.addAdminProduct(data)
+    // 管理員取得單一資料
+  async function getAdminSingleShown(id) {
+    loaderShow();
+    let res;
+    if(userStore.currentPosition === '/backStage/billboardAdmin'){
+      res = await atrApi.getAdminArticle(id);
+    } 
+    // const res = await atrApi.getAdminArticles(params);
     if (res.success) {
-      editModal.value.hideModal()
+      // console.log(res.products)
       userStore.$patch((state) => {
-        state.messageContent.message = res.message
+        if(userStore.currentPosition === '/backStage/billboardAdmin'){
+      state.currentItem = JSON.parse(JSON.stringify(res.article));
+    }
       })
-      infoModal.value.openModal()
-      getAdminProducts()
-      loaderHide()
     } else {
       if (typeof res.response.data.message === 'string') {
         userStore.$patch((state) => {
@@ -182,15 +197,51 @@ export const useApiModal = () => {
           state.messageContent.message = res.response.data.message.join(', ')
         })
       }
-      loaderHide()
+    }
+    loaderHide();
+  }
+
+  // 新增
+  async function addAdminShown(data) {
+    loaderShow();
+    let res;
+    if(userStore.currentPosition ===  '/backStage/billboardAdmin'){
+      res = await atrApi.addAdminArticle(data);
+    } else if(userStore.currentPosition ===  '/backStage'){
+      res = await atrApi.addAdminProduct(data);
+    }
+    if (res.success) {
+      editModal.value.hideModal()
+      userStore.$patch((state) => {
+        state.messageContent.message = res.message
+      })
+      infoModal.value.openModal()
+      getAdminShown()
+    } else {
+      if (typeof res.response.data.message === 'string') {
+        userStore.$patch((state) => {
+          state.messageContent.message = res.response.data.message
+        })
+      } else {
+        userStore.$patch((state) => {
+          state.messageContent.message = res.response.data.message.join(', ')
+        })
+      }
       infoModal.value.openModal()
     }
+    loaderHide()
   }
-  // 編輯產品
-  async function editAdminProduct(data) {
+  // 編輯
+  async function editAdminShown(data) {
     loaderShow()
     const { id } = data
-    const res = await atrApi.editAdminProduct(id, data)
+    // const res = await atrApi.editAdminProduct(id, data)
+        let res;
+    if(userStore.currentPosition ===  '/backStage/billboardAdmin'){
+      res = await atrApi.editAdminArticle(id, data);
+    } else if(userStore.currentPosition ===  '/backStage'){
+      res = await atrApi.editAdminProduct(id, data);
+    }
     if (res.success) {
       // console.log('useApi editModal',editModal )
       editModal.value.hideModal()
@@ -198,8 +249,7 @@ export const useApiModal = () => {
         state.messageContent.message = res.message
       })
       infoModal.value.openModal()
-      getAdminProducts()
-      loaderHide()
+      getAdminShown()
     } else {
       if (typeof res.response.data.message === 'string') {
         userStore.$patch((state) => {
@@ -210,19 +260,27 @@ export const useApiModal = () => {
           state.messageContent.message = res.response.data.message.join(', ')
         })
       }
-      loaderHide()
       infoModal.value.openModal()
     }
+    loaderHide()
   }
-  // 刪除產品
-  async function deleteAdminProduct() {
-    infoModal.value.hideModal()
-    const res = await atrApi.deleteAdminProduct(userStore.currentItem?.id)
+  // 刪除
+  async function deleteAdminShown() {
+
+    infoModal.value.hideModal();
+    loaderShow()
+    // const res = await atrApi.deleteAdminProduct(userStore.currentItem?.id)
+    let res;
+    if(userStore.currentPosition ===  '/backStage/billboardAdmin'){
+      res = await atrApi.deleteAdminArticle(userStore.currentItem?.id);
+    } else if(userStore.currentPosition ===  '/backStage'){
+      res = await atrApi.deleteAdminProduct(userStore.currentItem?.id);
+    }
     if (res.success) {
       userStore.$patch((state) => {
         state.messageContent.message = res.message
       })
-      getAdminProducts()
+      getAdminShown()
     } else {
       if (typeof res.response.data.message === 'string') {
         userStore.$patch((state) => {
@@ -234,6 +292,7 @@ export const useApiModal = () => {
         })
       }
     }
+    loaderHide()
     infoModal.value.openModal()
   }
 
@@ -289,10 +348,11 @@ export const useApiModal = () => {
     login,
     checkLoginStatus,
     logOut,
-    getAdminProducts,
-    addAdminProduct,
-    editAdminProduct,
-    deleteAdminProduct,
+    getAdminShown,
+    getAdminSingleShown,
+    addAdminShown,
+    editAdminShown,
+    deleteAdminShown,
     getCart,
     cartProducts,
     finalTotal,

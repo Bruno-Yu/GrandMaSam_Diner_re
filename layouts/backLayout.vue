@@ -22,7 +22,7 @@
     class="relative m-0 list-none px-[0.2rem] pb-12"
 >
     <li class="relative">
-      <a
+      <NuxtLink to="/frontStage"
         class="flex cursor-pointer items-center truncate rounded-[5px] px-6 py-[0.45rem] text-[0.85rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
 >
         <span
@@ -39,7 +39,7 @@
           </svg>
         </span>
         <span class="font-bold">返回前台</span>
-      </a>
+      </NuxtLink>
     </li>
     <li class="relative pt-4">
       <span
@@ -94,7 +94,7 @@
         class="px-6 py-4 text-[0.6rem] font-bold uppercase text-gray-600 dark:text-gray-400"
         >管理 Manage</span
       >
-      <NuxtLink to="./backStage"
+      <NuxtLink to="/backStage"
         class="flex cursor-pointer items-center truncate rounded-[5px] px-6 py-[0.45rem] text-[0.85rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
         data-te-sidenav-link-ref>
         <span
@@ -112,7 +112,7 @@
       </NuxtLink>
     </li>
     <li class="relative">
-      <a
+      <NuxtLink to="/backStage/billboardAdmin"
         class="flex cursor-pointer items-center truncate rounded-[5px] px-6 py-[0.45rem] text-[0.85rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
         data-te-sidenav-link-ref>
         <span
@@ -132,8 +132,8 @@
               d="M12 20.25c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 001.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 001.897 1.384C6.809 19.664 9.315 20.25 12 20.25z" />
           </svg>
         </span>
-        <span>Databases</span>
-      </a>
+        <span>公告管理</span>
+      </NuxtLink>
     </li>
   </ul>
 </nav>

@@ -190,7 +190,7 @@ export default {
           infoModal.value.openModal();
         }
       } else {
-        const res = await userSignupForm.value.validate();
+        await userSignupForm.value.validate();
       }
     }
 

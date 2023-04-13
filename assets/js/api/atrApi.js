@@ -96,7 +96,7 @@ class atrApi extends Api {
   }
 
 
-  // admin 取得產品
+  // admin 取得全部產品
   static async getAdminProducts({page, category}) {
         const queryPage = `?page=${page}`;
     const queryCategory = category? `?category=${category}`: '';
@@ -148,13 +148,67 @@ class atrApi extends Api {
     return res;
   }
 
-  // admin 刪除 商品
+  // admin 刪除單一商品
     static async deleteAdminProduct(id) {
     const res = await this.callAxios('DELETE', `${apiPrefix}api/${apiPath}/admin/product/${id}`, null, undefined, undefined, true);
     return res;
   }
 
-  // 
+    // admin 取得單一文章
+  static async getAdminArticle(id) {
+    const res = await this.callAxios('GET', `${apiPrefix}api/${apiPath}/admin/article/${id}`, null, undefined, undefined, true);
+    return res;
+  }
+
+    // admin 取得全部文章
+  static async getAdminArticles({page}) {
+    const queryPage = `?page=${page}`;
+    const res = await this.callAxios('GET', `${apiPrefix}api/${apiPath}/admin/articles${queryPage}`, null, undefined, undefined, true);
+    return res;
+  }
+     // admin 新增單一文章
+  static async addAdminArticle({title, description, image, tag, create_at, author, isPublic, content,  imageUrl }) {
+    const params = {
+    'data':{ 
+      title,
+      image,
+      tag,
+      create_at,
+      author,
+      description,
+      content,
+      isPublic,
+      imageUrl,
+      }
+    };
+    const res = await this.callAxios('POST', `${apiPrefix}api/${apiPath}/admin/article`, params, undefined, undefined, true);
+    return res;
+  }
+
+    // admin 更新單一文章
+  static async editAdminArticle(id, {title, description, image, tag, create_at, author, isPublic, content,  imageUrl }) {
+    const params = {
+    'data':{ 
+      title,
+      image,
+      tag,
+      create_at,
+      author,
+      description,
+      content,
+      isPublic,
+      imageUrl,
+      }
+    };
+    const res = await this.callAxios('PUT', `${apiPrefix}api/${apiPath}/admin/article/${id}`, params, undefined, undefined, true);
+    return res;
+  }
+
+    // admin 刪除單一文章
+    static async deleteAdminArticle(id) {
+    const res = await this.callAxios('DELETE', `${apiPrefix}api/${apiPath}/admin/article/${id}`, null, undefined, undefined, true);
+    return res;
+  }
 }
 
 export default atrApi;
