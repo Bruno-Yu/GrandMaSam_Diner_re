@@ -2,14 +2,20 @@
   <main class="-mx-4 bg-white">
     <div class="grid grid-cols-3 gap-4 bg-white h-[700px] mb-2">
       <!-- card -->
-      <div v-for="(item, index) in challengeListData" :key="item.code" class="relative bg-stone-800 flex flex-col h-[700px]" >
+      <div v-for="(item, index) in challengeListData" :key="item.code" class="relative bg-stone-800 flex flex-col h-[700px] overflow-hidden" >
         <img  class="absolute  block duration-700 delay-100 ease-out hover: w-full h-full object-cover shadow-black shadow-lg"  :class="{ '-translate-y-1/2': toggleStatus[index] }" :src="item.imgSrc" :alt="item.alt"  @click="toggleStatus[index] = !toggleStatus[index]">
           <button type="button" class="absolute top-1/3 left-1/2 -translate-x-1/2  bg-white/30  h-12 w-12 rounded-full animate-bounce " :class="{ 'hidden': !toggleStatus[index] }"  @click="toggleStatus[index] = !toggleStatus[index]"><i class="bi bi-chevron-double-down text-white "></i></button>
           <button type="button" class="absolute bottom-1 left-1/2 -translate-x-1/2  bg-white/30  h-12 w-12 rounded-full animate-bounce" :class="{ 'hidden': toggleStatus[index] }"  @click="toggleStatus[index] = !toggleStatus[index]"><i class="bi bi-chevron-double-up text-white "></i></button>
+          <!-- <div class="absolute top-14 -left-3 block bg-white/50 -skew-x-12 text-6xl text-black font-bold py-4 pl-16 pr-8 " :class="{ 'hidden': toggleStatus[index], 'block': !toggleStatus[index] }" > 簡易 </div> -->
+          <!-- <div class="absolute top-20 -left-1 block bg-white/80 -skew-x-12 text-6xl text-black font-bold py-4 pl-16 pr-8 " :class="{ 'hidden': toggleStatus[index], 'block': !toggleStatus[index] }" > 簡易 </div> -->
+          <div class="absolute top-0 bottom-0 left-4 flex justify-center items-center bg-white/20 -skew-x-12 text-6xl text-black font-bold py-4 pl-16 pr-8 " :class="{ 'hidden': toggleStatus[index], 'block': !toggleStatus[index] }" ><p class="block relative">{{ item.name }}<br /><span class="absolute -right-10 top-full text-amber-400">挑戰</span></p>  </div>
+          <div class="absolute top-0 bottom-0 -left-1 flex justify-center items-center bg-amber-400/90 -skew-x-12 text-6xl text-black font-bold py-4 pl-16 pr-8 " :class="{ 'hidden': toggleStatus[index], 'block': !toggleStatus[index] }" > <p class="block relative">{{ item.name }} <br /><span class="absolute -right-14 top-full text-white">挑戰</span></p> </div>
+
+
         <div class="mt-auto bg-black p-5 min-h-1/2">
           <div class="bg-white/10 p-5">
             <div class="flex justify-center">
-              <h4 class="inline-block text-center text-3xl font-bold text-amber-400 border-b-2 border-black pb-1 mb-5">{{ item.name }} </h4>
+              <h4 class="inline-block text-center text-3xl font-bold text-amber-400 border-b-2 border-black pb-1 mb-5">{{ `${item.name}難度` }} </h4>
             </div>
             <div class="grid grid-cols-3 gap-4 mb-3">
               <ul class="list-none text-white col-span-2  space-y-4">
@@ -51,7 +57,7 @@ const challengeListData = [
   {
     imgSrc: 'https://i.imgur.com/wpeIDey.jpg',
     alt: 'News_header_left',
-    name: '簡易難度',
+    name: '簡易',
     description: '溢價購買商品，多餘的部分都會捐贈與非洲無關的辛苦作者。',
     times: 5,
     expired: '不限',
@@ -61,7 +67,7 @@ const challengeListData = [
   {
     imgSrc: 'https://i.imgur.com/1d3nEt1.jpg',
     alt: 'News_header_md',
-    name: '中等難度',
+    name: '中等',
     description: '溢價購買商品，多餘的部分都會捐贈與非洲無關的辛苦作者。',
     times: 6,
     expired: '不限',
@@ -71,7 +77,7 @@ const challengeListData = [
   {
     imgSrc: 'https://i.imgur.com/LvVe6MT.jpg',
     alt: 'News_header_right',
-    name: '高級難度',
+    name: '高級',
     description: '溢價購買商品，多餘的部分都會捐贈與非洲無關的辛苦作者。',
     times: 8,
     expired: '不限',
