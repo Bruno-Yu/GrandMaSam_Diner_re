@@ -38,11 +38,17 @@ class atrApi extends Api {
     return res;
   }
 
-    // user 前台取得景點
+    // user 前台取得全部產品
   static async getProducts( page=1, category='') {
     const queryPage = `?page=${page}`;
     const queryCategory = category? `?category=${category}`: '';
     const res = await this.callAxios('GET', `${apiPrefix}api/${apiPath}/products${queryPage}${queryCategory}`, null, undefined, undefined, false);
+    return res;
+  }
+
+  // user 前台取得單一產品
+  static async getProduct(id) {
+    const res = await this.callAxios('GET', `${apiPrefix}api/${apiPath}/product/${id}`, null, undefined, undefined, false);
     return res;
   }
 

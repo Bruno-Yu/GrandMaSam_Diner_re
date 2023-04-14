@@ -62,7 +62,7 @@
             </li>
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-gray-500 text-base hover:text-amber-400 focus:text-amber-400 p-0"
-                to="/frontStage/attractionsView"  @click.prevent="closeCartDropdown"><i class="bi bi-shop"></i> 商店 </NuxtLink>
+                to="/frontStage/productsView"  @click.prevent="closeCartDropdown"><i class="bi bi-shop"></i> 商店 </NuxtLink>
             </li>
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-gray-500 text-base hover:text-amber-400 focus:text-amber-400 p-0"

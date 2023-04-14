@@ -18,8 +18,9 @@
       <!-- swiper -->
       <div class="px-10  bg-stone-900 py-5">
         <swiper
-          :slidesPerView="5"
+          :slidesPerView="4"
           :spaceBetween="25"
+          :loop="true"
           :navigation="true"
           :freeMode="true"
           :pagination="{
@@ -54,7 +55,7 @@
         <div class="col-span-3 grid grid-cols-3 gap-4">
           <div v-for=" (item) in products" :key="item.id" class="flex justify-center ">
             <div class="rounded-lg shadow-lg bg-white w-full">
-              <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light" class="relative">
+              <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light" class="relative" @click.prevent="gotoProductDetail(item.id)">
                 <img class="rounded-t-lg h-40 w-full object-cover" :src="item.imageUrl" :alt="item.id" />
                 <button type="button" class="absolute top-2 right-6 block h-1 w-1 shadow-transparent"><i v-if="false" class="bi-heart-fill text-red-600 text-base"></i><i v-else class="bi bi-heart text-white text-base"></i></button>
               </a>
@@ -122,7 +123,6 @@ import '@/assets/styles/categories/swiper.scss';
 import 'swiper/css/free-mode';
 import '@/assets/styles/categories/navigation.scss';
 
-
 export default {
   components: {
     Swiper,
@@ -131,11 +131,17 @@ export default {
   setup() {
     // const store = userStore();
     const { userStore } = useStore();
+    const router = useRouter();
     const { messageContent } = storeToRefs(userStore);
     const { hideInfoModal, infoModal } = useApiModal();
     const categories = ref([]);
     const products = ref([]);
     const pagination = ref([]);
+    // 前往產品頁面
+    function gotoProductDetail(id) {
+      router.push(`./productsView/${id}`);
+    }
+
     // 管理員取得產品資料
     async function getProducts(page = 1, category = '') {
       const res = await atrApi.getProducts(page, category);
@@ -191,6 +197,7 @@ export default {
       categories,
       messageContent,
       getProducts,
+      gotoProductDetail,
       addToCart,
       hideInfoModal,
       infoModal,

@@ -201,7 +201,7 @@ export const useApiModal = () => {
     loaderHide();
   }
 
-  // 新增
+  // 管理員新增
   async function addAdminShown(data) {
     loaderShow();
     let res;
@@ -231,7 +231,7 @@ export const useApiModal = () => {
     }
     loaderHide()
   }
-  // 編輯
+  // 管理員編輯
   async function editAdminShown(data) {
     loaderShow()
     const { id } = data
@@ -264,7 +264,7 @@ export const useApiModal = () => {
     }
     loaderHide()
   }
-  // 刪除
+  // 管理員刪除
   async function deleteAdminShown() {
 
     infoModal.value.hideModal();
