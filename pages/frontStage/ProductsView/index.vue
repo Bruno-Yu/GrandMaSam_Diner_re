@@ -139,6 +139,7 @@ export default {
     const pagination = ref([]);
     // 前往產品頁面
     function gotoProductDetail(id) {
+      console.log('id', id)
       router.push(`./productsView/${id}`);
     }
 

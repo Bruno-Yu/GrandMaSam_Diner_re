@@ -49,8 +49,8 @@ export default defineNuxtConfig({
       transpile: ['gsap'],
   },
     runtimeConfig: {
-    API_BASE_URL: process.env.API_BASE_URL,
-    API_BASE_URL_PATH: process.env.API_BASE_PATH
+    API_BASE_URL: process.env.VITE_API_BASE_URL,
+    API_BASE_URL_PATH: process.env.VITE_API_BASE_PATH
 },
   // typescript: {
   //   typeCheck: true

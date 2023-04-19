@@ -14,6 +14,8 @@
           py-4
           bg-white/0
           text-gray-500
+          group
+          hover:shadow-lg
           transition ease-in-out delay-250  -translate-y-[60px] 
           hover:translate-y-0
           hover:bg-white/99
@@ -43,15 +45,16 @@
           </svg>
         </button>
         <div class="collapse navbar-collapse flex-grow items-center" id="navbarSupportedContent">
-          <NuxtLink class=" 
-                  block
+          <NuxtLink class="
+                  hidden
+                  group-hover:block
                   hover:text-gray-900
                   focus:text-gray-900
                   mt-2
                   lg:mt-0
                   mr-auto
                 " to="/" exact-active-class="no-active"  @click.prevent="closeCartDropdown">
-            <p class="text-gray-900 text-3xl font-serif">GRANDMA SAM DINER</p>
+            <p class=" text-gray-900 text-3xl font-serif">GRANDMA SAM DINER</p>
             <p class=" text-gray-900 text-base text-center font-serif"> LET MAKE AMERICA GREAT AGAIN</p>
           </NuxtLink>
           <!-- Left links -->
@@ -73,7 +76,7 @@
             </RouterLink>
           </li> -->
             <li class="nav-item  p-2 dropdown relative">
-              <a class="dropdown-toggle pr-2 lg:px-2 py-2 text-base text-gray-500 hover:text-amber-400 focus:text-amber-400 transition duration-150 ease-in-out flex items-center whitespace-nowrap"
+              <a class="dropdown-toggle pr-2 lg:px-2 text-base text-gray-500 hover:text-amber-400 focus:text-amber-400 transition duration-150 ease-in-out flex items-center whitespace-nowrap"
                 href="#" type="button" id="dropdownMenuButton1" aria-expanded="false"
                 @click.prevent="toggleCartDropdown"><i class="bi bi-suit-heart"></i> <span class="pl-1">收藏</span>
               </a>

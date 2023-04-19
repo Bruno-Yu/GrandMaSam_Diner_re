@@ -1,5 +1,5 @@
 <template>
-  <main class="px-10 py-10 mx-auto max-w-5xl">
+  <main class="px-10 py-10 mx-auto max-w-5xl mt-24">
     <div class="accordion mb-5" id="personalInfo">
       <div class="accordion-item bg-white border border-gray-200">
         <h2 class="accordion-header mb-0" id="headingOne">

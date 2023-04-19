@@ -75,6 +75,7 @@ typings/
 # Nuxt generate
 dist
 .output
+.env
 
 # vuepress build output
 .vuepress/dist
