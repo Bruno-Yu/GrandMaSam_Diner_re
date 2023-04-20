@@ -58,6 +58,14 @@ class atrApi extends Api {
     return res;
   }
 
+  // 編輯 user 購物車
+    static async editCart(id ,data) {
+      const params = {
+      data,
+    };
+    const res = await this.callAxios('PUT', `${apiPrefix}api/${apiPath}/cart/${id}`, params, undefined, undefined, false);
+    return res;
+  }
 
   // user 取得購物車
     static async getCart() {
@@ -66,7 +74,7 @@ class atrApi extends Api {
   }
 
   // user 更新購物車數量
-  static async editCart({ data }, id) {
+  static async editCart( id, data) {
     const params = {
       data,
     }
@@ -210,6 +218,22 @@ class atrApi extends Api {
     // admin 刪除單一文章
     static async deleteAdminArticle(id) {
     const res = await this.callAxios('DELETE', `${apiPrefix}api/${apiPath}/admin/article/${id}`, null, undefined, undefined, true);
+    return res;
+  }
+
+  // 成立訂單 
+  static async confirmToFormOrder(data){
+    const params = {
+      data,
+    }
+    const res = await this.callAxios('POST', `${apiPrefix}api/${apiPath}/order`, params, undefined, undefined, false);
+    return res;
+  }
+
+  // 確認付款
+  static async confirmToPay(id) {
+    const res = await this.callAxios('POST', `${apiPrefix}api/${apiPath}/pay/${id}`, null, undefined, undefined, true);
+    
     return res;
   }
 }

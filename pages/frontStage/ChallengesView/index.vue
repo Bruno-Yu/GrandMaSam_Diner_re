@@ -10,8 +10,6 @@
           <!-- <div class="absolute top-20 -left-1 block bg-white/80 -skew-x-12 text-6xl text-black font-bold py-4 pl-16 pr-8 " :class="{ 'hidden': toggleStatus[index], 'block': !toggleStatus[index] }" > 簡易 </div> -->
           <div class="absolute top-0 bottom-0 left-4 flex justify-center items-center bg-white/20 -skew-x-12 text-6xl text-black font-bold py-4 pl-16 pr-8 " :class="{ 'hidden': toggleStatus[index], 'block': !toggleStatus[index] }" ><p class="block relative">{{ item.name }}<br /><span class="absolute -right-10 top-full text-amber-400">挑戰</span></p>  </div>
           <div class="absolute top-0 bottom-0 -left-1 flex justify-center items-center bg-amber-400/90 -skew-x-12 text-6xl text-black font-bold py-4 pl-16 pr-8 " :class="{ 'hidden': toggleStatus[index], 'block': !toggleStatus[index] }" > <p class="block relative">{{ item.name }} <br /><span class="absolute -right-14 top-full text-white">挑戰</span></p> </div>
-
-
         <div class="mt-auto bg-black p-5 min-h-1/2">
           <div class="bg-white/10 p-5">
             <div class="flex justify-center">
