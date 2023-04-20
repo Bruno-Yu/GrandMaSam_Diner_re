@@ -29,11 +29,17 @@ class atrApi extends Api {
     return res;
   }
 
-    // user 前台取得全部產品
+    // user 前台取得全部產品 (有分頁)
   static async getProducts( page=1, category='') {
     const queryPage = `?page=${page}`;
-    const queryCategory = category? `?category=${category}`: '';
+    const queryCategory = category? `&&category=${category}`: '';
     const res = await this.callAxios('GET', `${apiPrefix}api/${apiPath}/products${queryPage}${queryCategory}`, null, undefined, undefined, false);
+    return res;
+  }
+
+    // user 前台取得全部產品 (無分頁)
+  static async getNoPageProducts() {
+    const res = await this.callAxios('GET', `${apiPrefix}api/${apiPath}/products/all`, null, undefined, undefined, false);
     return res;
   }
 

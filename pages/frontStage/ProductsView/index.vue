@@ -12,9 +12,6 @@
         <img class="block w-full h-[450px] object-cover"  src="@/assets/images/productsView_banner.webp" alt="productsView_banner">
       </div>
       <!-- 選項按鈕 -->
-      <!-- <ul class="list-none bg-stone-900 grid grid-cols-5 gap-5 px-12 py-5">
-        <li v-for="item in categories" :key="item" class="border bg-white border-gray-300 px-3 py-1.5 whitespace-nowrap rounded text-center shadow"><button type="button" class="font-bold text-xl" >{{ item }}</button></li>
-      </ul> -->
       <!-- swiper -->
       <div class="px-10  bg-stone-900 py-5">
         <swiper
@@ -29,10 +26,9 @@
           :modules="modules"
           class="mySwiper"
         >
-      <swiper-slide  v-for="item in categories" :key="item" class="border bg-white border-gray-300  whitespace-nowrap rounded text-center shadow"><button type="button" class="font-bold px-3 py-1.5 text-xl" >{{ item }}</button></swiper-slide>
-    </swiper>
-
-      </div>
+        <swiper-slide  v-for="item in categories" :key="item" class="border bg-white border-gray-300  whitespace-nowrap rounded text-center shadow"><button type="button" class="font-bold px-3 py-1.5 text-xl" @click="getCurrentCategoryProduct(1, item)">{{ item }}</button></swiper-slide>
+      </swiper>
+    </div>
 
     </header>
     <!-- Category List -->
@@ -51,57 +47,13 @@
       >
     </div>
       </div>
-        <!-- cards -->
-        <div class="col-span-3 grid grid-cols-3 gap-4">
-          <div v-for=" (item) in products" :key="item.id" class="flex justify-center ">
-            <div class="rounded-lg shadow-lg bg-white w-full">
-              <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light" class="relative" @click.prevent="gotoProductDetail(item.id)">
-                <img class="rounded-t-lg h-40 w-full object-cover" :src="item.imageUrl" :alt="item.id" />
-                <button type="button" class="absolute top-2 right-6 block h-1 w-1 shadow-transparent"><i v-if="false" class="bi-heart-fill text-red-600 text-base"></i><i v-else class="bi bi-heart text-white text-base"></i></button>
-              </a>
-              <div class="px-2 py-2">
-                <h5 class="text-gray-900 text-xl font-bold mb-2">{{ item.title }}</h5>
-                <div class="flex justify-end">
-                  <button type="button"
-                    class=" inline-block px-6 py-2.5 bg-amber-400 text-black font-bold text-sm leading-tight uppercase rounded shadow-md hover:bg-amber-500 hover:shadow-lg focus:bg-amber-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-amber-500 active:shadow-lg transition duration-150 ease-in-out"
-                    @click.prevent="addToCart(item.id)">加入購物車</button>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class="col-span-3 grid grid-cols-3 gap-4">
+          <card-display  v-for="(item) in products" :key="item.id" :product="item" :confirm="confirm"/>
         </div>
       </div>
       <!-- pagination -->
       <div class="flex justify-end my-3">
-        <nav aria-label="Page navigation">
-          <ul class="list-style-none flex">
-            <li :class="{ 'hidden': !pagination.has_pre }">
-              <a
-                class="relative block rounded bg-transparent py-1.5 px-3 text-lg text-neutral-600 transition-all duration-300 hover:bg-amber-400 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
-                href="#"
-                aria-label="Previous" @click.prevent="getProducts(page = pagination.current_page - 1, category = '')">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li v-for="page in pagination.total_pages" :key="page">
-              <a
-                class="relative block rounded bg-transparent py-1.5 px-3 text-lg text-neutral-600 transition-all duration-300 hover:bg-amber-400 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
-                :class="{ 'bg-amber-400': page === pagination.current_page }"
-                href="#"
-                @click.prevent="getProducts(page, category = '')"
-                >{{ page }}</a
-              >
-            </li>
-            <li :class="{ 'hidden': !pagination.has_next }">
-              <a
-                class="relative block rounded bg-transparent py-1.5 px-3 text-lg text-neutral-600 transition-all duration-300 hover:bg-amber-400 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
-                href="#"
-                aria-label="Next"  @click.prevent="getProducts(page = pagination.current_page + 1, category = '')"
-                ><span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <frontStageProductsViewPagination :pagination="pagination" :get-content="getProducts" :current-category="currentCategory" />
         </div>
 <!-- modal -->
     <info-modal class="infoModal" ref="infoModal" :content="messageContent" @hide-modal="hideInfoModal" />
@@ -131,29 +83,38 @@ export default {
   setup() {
     // const store = userStore();
     const { userStore } = useStore();
-    const router = useRouter();
+
     const { messageContent } = storeToRefs(userStore);
-    const { hideInfoModal, infoModal } = useApiModal();
+    const { hideInfoModal, infoModal, addToCart } = useApiModal();
     const categories = ref([]);
     const products = ref([]);
     const pagination = ref([]);
-    // 前往產品頁面
-    function gotoProductDetail(id) {
-      console.log('id', id)
-      router.push(`./productsView/${id}`);
+    const currentCategory = ref('');
+
+    // 取得全部產品的類別
+    async function getCategories() {
+      const res = await atrApi.getNoPageProducts();
+      if (res.success) {
+        const allProducts = JSON.parse(JSON.stringify(res.products));
+        const originCategories = allProducts.map(item => item.category);
+        categories.value = originCategories.filter((item, index) => originCategories.indexOf(item) === index);
+        categories.value.unshift('未亡人系列');
+        categories.value.unshift('全部');
+      } else {
+        if (typeof res.response.data.message === 'string') {
+          userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
+        } else {
+          userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
+        }
+      }
     }
 
-    // 管理員取得產品資料
+    // 取得產品資料
     async function getProducts(page = 1, category = '') {
       const res = await atrApi.getProducts(page, category);
       if (res.success) {
         products.value = JSON.parse(JSON.stringify(res.products));
         pagination.value = JSON.parse(JSON.stringify(res.pagination));
-        const originCategories = products.value.map(item => item.category)
-        categories.value = originCategories.filter((item, index) => originCategories.indexOf(item) === index);
-        categories.value.unshift('未亡人系列');
-        categories.value.unshift('全部');
-        // console.log('categories.value', categories.value);
       } else {
         if (typeof res.response.data.message === 'string') {
           userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
@@ -163,33 +124,24 @@ export default {
       }
     }
 
-    // 加入購物車
-    async function addToCart(product_id, qty = 1) {
-      const data = {
-        product_id, qty
-      }
-      const res = await atrApi.addToCart({ data });
-      if (res.success) {
-        // console.log(res);
-        userStore.$patch((state) => { state.messageContent.message = res.message });
+    function getCurrentCategoryProduct(page = 1, category = '') {
+
+      if (category === '全部' || category === '未亡人系列') {
+        currentCategory.value = '';
       } else {
-        if (typeof res.response.data.message === 'string') {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
-        } else {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
-        }
+        currentCategory.value = category;
       }
-      infoModal.value.openModal();
+      getProducts(page, currentCategory.value);
     }
 
-    // const swiper = new Swiper('.my-swiper', {
-    //   navigation: {
-    //     nextE1: ".swiper-button-next",
-    //     prevEl: ".swiper-button-prev",
-    //   }
-    // })
+    const confirm = ref({
+      confirmName: '加入購物車',
+      confirmBtn: addToCart,
+    });
+
     onMounted(() => {
       getProducts();
+      getCategories();
     });
 
     return {
@@ -197,10 +149,12 @@ export default {
       pagination,
       categories,
       messageContent,
+      currentCategory,
       getProducts,
-      gotoProductDetail,
       addToCart,
       hideInfoModal,
+      confirm,
+      getCurrentCategoryProduct,
       infoModal,
       modules: [Navigation, FreeMode],
       // swiper,

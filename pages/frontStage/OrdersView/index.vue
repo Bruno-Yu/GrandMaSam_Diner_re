@@ -127,7 +127,7 @@
         w-full
         py-3
         px-5
-        text-base text-gray-800 text-left
+        text-base  text-left
         bg-white
         border-0
         rounded-none
@@ -151,8 +151,8 @@
                       :alt="item.product_id" />
                   </div>
                   <div class="p-2 col-span-2 justify-start w-full relative">
-                    <div class="grid grid-cols-2 items-center">
-                      <div>
+                    <div class="grid grid-cols-3 items-center">
+                      <div class="col-span-2">
                         <h5 class="text-gray-900 font-medium mb-2">{{ item.product.title }}</h5>
                         <p class="text-gray-600 text-xs">購買日期: {{ dayjs(new Date()).format('YYYY-MM-DD') }}</p>
                         <div class="flex justify-between items-center border-b border-gray-300 mt-1">
@@ -165,7 +165,7 @@
                         </div>
                       </div>
                       <div class="flex flex-col items-center">
-                        <p class="font-bold text-sm items-center">預定日期</p>
+                        <p class="font-bold text-sm items-center">刪除</p>
                         <div class="rounded bg-gray-300">
 
                         </div>

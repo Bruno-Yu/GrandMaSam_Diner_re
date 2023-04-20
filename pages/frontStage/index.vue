@@ -15,8 +15,8 @@
         </div>
         <div class="absolute bottom-20 left-5 w-1/3 bg-black/30 pl-5">
           <div class="border-l-[10px]  border-white pl-4">
-            <h2 class="text-white text-5xl animate-pulse text-gray-100 whitespace-nowrap mb-4"> 品牌精神、難忘體驗 </h2>
-            <h3 class="text-white text-2xl animate-pulse text-amber-400  whitespace-nowrap font-bold mb-2"> 各大KOL推薦，人生必吃餐廳 </h3>
+            <h2 class="text-5xl animate-pulse text-gray-100 whitespace-nowrap mb-4"> 品牌精神、難忘體驗 </h2>
+            <h3 class="text-2xl animate-pulse text-amber-400  whitespace-nowrap font-bold mb-2"> 各大KOL推薦，人生必吃餐廳 </h3>
             <p class="text-base text-white italic">榮獲餐廳各大獎項認可</p>
           </div>
           <div class="flex gap-4 mt-3">
@@ -42,18 +42,18 @@
       </div>
       <div class="w-3/5 grid grid-cols-2 gap-4 mt-10">
         <div class="shadow-lg p-1.5">
-          <div class="relative p-10 bg-[url('@/assets/images/diner_1.webp')] border border-gray-300 bg-cover h-full">
-            <div class="absolute top-0 bottom-0 left-0 right-0 bg-black/60 py-10  px-20 cursor-pointer hover:invisible">
+          <div class="relative group p-10 bg-[url('@/assets/images/diner_1.webp')] border border-gray-300 bg-cover h-full">
+            <div class="absolute hidden group-hover:block top-0 bottom-0 left-0 right-0 bg-black/60 py-10  px-20 cursor-pointer">
               <h3 class="mt-5 mb-10 font-bold text-3xl text-amber-400 text-center">關於我們</h3>
               <p class="leading-loose font-medium text-white">我們與各大連鎖超商合作，推出義大利麵，燉飯，炸雞及各式炸物小點系列，絕對難以滿足味蕾挑剔的您 </p>
             </div>
           </div>
         </div>
           <div class="shadow-lg p-1.5">
-            <div class="relative p-10 bg-[url('@/assets/images/diner_2.webp')] border border-gray-300 bg-cover h-full">
-              <div class="absolute top-0 bottom-0 left-0 right-0 bg-black/60 py-10  px-20 cursor-pointer hover:invisible">
+            <div class="relative group p-10 bg-[url('@/assets/images/diner_2.webp')] border border-gray-300 bg-cover h-full">
+              <div class="absolute hidden group-hover:block top-0 bottom-0 left-0 right-0 bg-black/60 py-10  px-20 cursor-pointer">
                 <h3 class="mt-5 mb-10 font-bold text-3xl text-amber-400 text-center">味道獨特</h3>
-                          <p  class="leading-loose font-medium text-white"> 本集團訴求的是夢想，並不只是單純的餐飲品牌，所以我們販售給我們貴賓的餐點都有一份夢想的味道</p>
+                  <p  class="leading-loose font-medium text-white"> 本集團訴求的是夢想，並不只是單純的餐飲品牌，所以我們販售給我們貴賓的餐點都有一份夢想的味道</p>
               </div>
           </div>
           

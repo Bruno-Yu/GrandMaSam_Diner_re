@@ -296,10 +296,11 @@ export const useApiModal = () => {
     infoModal.value.openModal()
   }
 
-  // 取購物車內容
+  // 購物車
   const cartProducts = ref([])
   const finalTotal = ref(0)
   const totalQty = ref(0)
+   // 取購物車內容
   async function getCart() {
     const res = await atrApi.getCart()
     if (res.success) {
@@ -324,6 +325,24 @@ export const useApiModal = () => {
       qty += item.qty
     })
     return qty
+  }
+  // 加入購物車
+    async function addToCart(product_id, qty = 1) {
+    const data = {
+      product_id, qty
+    }
+    const res = await atrApi.addToCart({ data });
+    if (res.success) {
+      // console.log(res);
+      userStore.$patch((state) => { state.messageContent.message = res.message });
+    } else {
+      if (typeof res.response.data.message === 'string') {
+        userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
+      } else {
+        userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
+      }
+    }
+    infoModal.value.openModal();
   }
 
   // 刪除購物車
@@ -354,6 +373,7 @@ export const useApiModal = () => {
     editAdminShown,
     deleteAdminShown,
     getCart,
+    addToCart,
     cartProducts,
     finalTotal,
     totalQty,
