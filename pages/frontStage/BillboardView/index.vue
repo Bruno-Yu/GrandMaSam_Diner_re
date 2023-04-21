@@ -24,7 +24,7 @@
       </div>
     </section>
     <!-- 公告 swiper -->
-    <section class="bg-white relative overflow-hidden transition-[height] duration-700 ease-in-out" :class="{ 'h-[220px]': btnStatus, 'overflow-visible': btnStatus }" >
+    <section class="bg-white relative overflow-hidden transition-[height] duration-700 ease-in-out " :class="{ 'h-[220px]': btnStatus, 'overflow-visible': btnStatus }" >
       <div class="absolute bottom-0 left-0 right-0 min-h-[200px] px-10  bg-black/90 py-5 z-40 " >
         <swiper
           :slidesPerView="5"
@@ -37,7 +37,7 @@
           :modules="modules"
           class="swiper"
         >
-      <swiper-slide  v-for="item in articles" :key="item.id" class="border bg-white border-gray-300 whitespace-nowrap rounded text-center shadow  brightness-50 hover:brightness-100 hover:z-50  "> <NuxtLink class="block relative h-[200px]  w-full hover:h-[600px] hover:w-[700px]  duration-700 ease-in-out" to="#"><img :src="getArticlePic(item.id)" class="absolute img-fluid block object-cover h-full w-full "  :alt="item.title" /> <p class="absolute block bottom-2 left-1 font-bold text-white px-3 bg-black/60">{{ item.title }} </p></NuxtLink> </swiper-slide>
+      <swiper-slide  v-for="item in articles" :key="item.id" class="border bg-white border-gray-300   whitespace-nowrap rounded text-center shadow  brightness-50  hover:brightness-100 hover:z-50  "> <NuxtLink class="block relative h-[200px]  w-full hover:h-[600px] hover:w-[700px] hover:border-white hover:border-4 duration-700 ease-in-out" to="#"><img :src="getArticlePic(item.id)" class="absolute img-fluid block object-cover h-full w-full "  :alt="item.title" /> <p class="absolute block bottom-2 left-1 font-bold text-white px-3 bg-black/60">{{ item.title }} </p></NuxtLink> </swiper-slide>
     </swiper>
       </div>
     </section>
