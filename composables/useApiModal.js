@@ -334,6 +334,7 @@ export const useApiModal = () => {
     const res = await atrApi.addToCart({ data });
     if (res.success) {
       // console.log(res);
+      getCart()
       userStore.$patch((state) => { state.messageContent.message = res.message });
     } else {
       if (typeof res.response.data.message === 'string') {

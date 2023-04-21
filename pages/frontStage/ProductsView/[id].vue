@@ -115,9 +115,12 @@
         <swiper
           :slidesPerView="4"
           :spaceBetween="25"
-          :navigation="true"
           :autoplay="true"
-          :modules="modules"
+          :navigation="true"
+          :pagination="{
+            clickable: true,
+          }"
+          :modules="likesModules"
           class="likesSwiper"
         >
         <template v-if="sameCategoryProducts.length">
@@ -212,7 +215,7 @@ export default {
       confirmBtn: addToCart,
     });
 
-    onMounted(() => {
+    watchEffect(() => {
       // console.log(`$route.params ${route.params.id}`);
       if (route.params.id) {
         getProduct(route.params.id);

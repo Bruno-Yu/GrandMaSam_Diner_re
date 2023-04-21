@@ -182,7 +182,7 @@
                     <div class="grid grid-cols-3 items-center">
                       <div  v-if="!editMode[index]" class="col-span-2">
                         <h5 class="text-gray-900 font-medium mb-2">{{ item.product.title }}</h5>
-                        <p class="text-gray-600 text-xs">購買日期: {{ dayjs(new Date()).format('YYYY-MM-DD') }}</p>
+                        <p class="text-gray-600 text-xs">購買日期: {{ dayjs().format('YYYY-MM-DD') }}</p>
                         <div class="flex justify-between items-center border-b border-gray-300 mt-1">
                           <p class="text-gray-600 text-xs">份數 x{{ item.qty }} </p>
                           <p class="text-gray-600 text-xs">TWD {{ helper.numberWithCommas(item.product.price) }}</p>

@@ -2,21 +2,28 @@
 @at-root {
   :root {
     --swiper-navigation-size: 10px;
-    /*
-  --swiper-navigation-top-offset: 50%;
-  --swiper-navigation-sides-offset: 10px;
+
+  // --swiper-navigation-top-offset: 50%;
+  --swiper-navigation-sides-offset: 1px;
   --swiper-navigation-color: var(--swiper-theme-color);
-  */
+
   }
 }
 .swiper-button-prev,
 .swiper-button-next {
   position: absolute;
-  top: var(--swiper-navigation-top-offset, 50%);
-  width: calc(var(--swiper-navigation-size) / 44 * 27);
-  height: var(--swiper-navigation-size);
+  top: 50%;
+  transform: translateY(-25%);
+  // top: var(--swiper-navigation-top-offset, 50%);
+  // width: calc(var(--swiper-navigation-size) / 44 * 27);
+  // height: var(--swiper-navigation-size);
+  width: 1.5rem;
+  height: 1.5rem;
   // background: white;
-  margin-top: calc(0px - (var(--swiper-navigation-size) / 2));
+  border-radius: 50%;
+
+  // background: white;
+  // margin-top: calc(0px - (var(--swiper-navigation-size) / 2));
   z-index: 10;
   cursor: pointer;
   display: flex;
@@ -25,6 +32,7 @@
   color: var(--swiper-navigation-color, var(--swiper-theme-color));
   &.swiper-button-disabled {
     opacity: 0.35;
+    background: rgb(156 163 175);
     cursor: auto;
     pointer-events: none;
   }
@@ -39,6 +47,7 @@
   &:after {
     font-family: swiper-icons;
     font-size: var(--swiper-navigation-size);
+    font-weight: 900;
     text-transform: none !important;
     letter-spacing: 0;
     font-variant: initial;
