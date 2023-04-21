@@ -1,8 +1,9 @@
 <template>
-  <main class="container mx-auto">
-            <nav class="w-full rounded-md">
-          <ol class="list-reset flex items-center">
-            <li>
+  <main class="container mx-auto mt-24">
+    <!-- breadCrumb -->
+        <nav class="rounded-md">
+          <ol class="list-reset flex justify-end items-center ">
+            <li >
               <NuxtLink
                 to='/frontStage/billboardView'
                 class="text-base font-bold underline decoration-solid"
@@ -16,20 +17,38 @@
           </ol>
         </nav>
         <h1 class="text-4xl font-bold my-6">{{ article.title }}</h1>
+        <p class="text-sm text-gray-600 text-right">{{ `${article.create_at} 作者: ${article.author}` }}</p>
+        <img class="w-full h-auto object-cover border-4 border-black" :src="getArticleImage(article.id)" :alt="getArticleImage(article.id)">
 <!-- modal -->
-    <info-modal class="infoModal" ref="infoModal" :content="messageContent" @hide-modal="hideInfoModal" />
-  </main>
+<blockquote class="blockquote">
+  <p
+  class="text-base font-bold mb-4 underline"
+  v-html="article.description"
+  ></p>
+</blockquote>
+<info-modal class="infoModal" ref="infoModal" :content="messageContent" @hide-modal="hideInfoModal" />
+<div class=" mb-5" v-html="article.content" />
+</main>
 </template>
 
 <script>
+import { useApiModal } from '~~/composables/useApiModal';
+import useStore from '@/store';
+import { storeToRefs } from 'pinia';
 import atrApi from '@/assets/js/api/atrApi.js';
+import { getArticleImage } from '@/assets/js/enum/articleImageEnum.js';
+
 
 
 export default {
 
   setup() {
+    const route = useRoute();
     const router = useRouter();
-
+    const { userStore } = useStore();
+    // const { hideInfoModal, messageContent, useApiModal } = useApiModal();
+    const { messageContent } = storeToRefs(userStore);
+    const { hideInfoModal, infoModal } = useApiModal();
     const article = ref({});
 
     async function getArticle(id) {
@@ -47,8 +66,8 @@ export default {
       }
     }
 
+
     watchEffect(() => {
-      // console.log(`$route.params ${route.params.id}`);
       if (route.params.id) {
         getArticle(route.params.id)
       }
@@ -56,8 +75,12 @@ export default {
     });
 
     return {
-      infoModal,
+      messageContent,
+      useApiModal,
+      hideInfoModal,
       article,
+      getArticleImage,
+      infoModal
       // swiper,
     }
 

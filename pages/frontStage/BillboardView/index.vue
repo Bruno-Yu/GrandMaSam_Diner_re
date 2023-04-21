@@ -37,7 +37,7 @@
           :modules="modules"
           class="swiper"
         >
-      <swiper-slide  v-for="item in articles" :key="item.id" class="border bg-white border-gray-300   whitespace-nowrap rounded text-center shadow  brightness-50  hover:brightness-100 hover:z-50  "> <NuxtLink class="block relative h-[200px]  w-full hover:h-[600px] hover:w-[700px] hover:border-white hover:border-4 duration-700 ease-in-out" to="#"><img :src="getArticlePic(item.id)" class="absolute img-fluid block object-cover h-full w-full "  :alt="item.title" /> <p class="absolute block bottom-2 left-1 font-bold text-white px-3 bg-black/60">{{ item.title }} </p></NuxtLink> </swiper-slide>
+      <swiper-slide  v-for="item in articles" :key="item.id" class="border bg-white border-gray-300   whitespace-nowrap rounded text-center shadow  brightness-50  hover:brightness-100 hover:z-50  "> <NuxtLink class="block relative h-[200px]  w-full hover:h-[600px] hover:w-[700px] hover:border-white hover:border-4 duration-700 ease-in-out" :to="`/frontStage/billboardView/${item.id}`"><img :src="getArticleImage(item.id)" class="absolute img-fluid block object-cover h-full w-full "  :alt="item.title" /> <p class="absolute block bottom-2 left-1 font-bold text-white px-3 bg-black/60">{{ item.title }} </p></NuxtLink> </swiper-slide>
     </swiper>
       </div>
     </section>
@@ -45,42 +45,14 @@
 </template>
 <script>
 import atrApi from '@/assets/js/api/atrApi.js';
+import { getArticleImage } from '@/assets/js/enum/articleImageEnum.js';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
 import { Autoplay, Navigation } from 'swiper';
 
-// Import Swiper styles
-// import 'swiper/css';
+
 import '@/assets/styles/categories/swiper.scss';
 import 'swiper/css/free-mode';
 import '@/assets/styles/categories/navigation.scss';
-
-// articles 圖片 & 文章對應
-const articlesPics = [
-  {
-    id: '-N-tl8D5WkaIJ1frNRRB',
-    image: 'https://i.imgur.com/JJIHxqo.jpg'
-  },
-  {
-    id: '-N-qk3J_UqL6i1RH6BRz',
-    image: 'https://i.imgur.com/pHhKGN5.jpg'
-  },
-  {
-    id: '-N-qjhkvfCqcb-6Mx1G-',
-    image: 'https://i.imgur.com/Z708ufn.jpg'
-  },
-  {
-    id: '-N-qjTKf-jAcAT4ND249',
-    image: 'https://i.imgur.com/cCwvJha.jpg'
-  },
-  {
-    id: '-N-qjOg2fvc8GOSgmkrN',
-    image: 'https://i.imgur.com/nVyT0mA.jpg'
-  },
-  {
-    id: '-N-qjALHXwnpNgIrpokr',
-    image: 'https://i.imgur.com/ydGbX1J.jpg'
-  },
-]
 
 
 export default {
@@ -93,9 +65,7 @@ export default {
     const articles = ref([]);
     const pagination = ref([]);
     const btnStatus = ref(false);
-    function getArticlePic(id) {
-      return articlesPics.filter((ele) => ele.id === id)[0].image;
-    }
+
     async function getArticles() {
       const res = await atrApi.getArticles();
       if (res.success) {
@@ -111,7 +81,7 @@ export default {
       pagination,
       modules: [Navigation, Autoplay],
       getArticles,
-      getArticlePic,
+      getArticleImage
     }
   }
 }
