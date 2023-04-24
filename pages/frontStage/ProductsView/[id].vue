@@ -86,8 +86,8 @@
           </div>
           <button
             type="button"
-            class="inline-block rounded bg-amber-400 px-6 pb-2 pt-2.5 text-base font-bold leading-normal shadow-[0_4px_9px_-4px_#3b71ca] 
-            transition duration-150 ease-in-out hover:bg-black hover:text-white 
+            class="inline-block rounded bg-stone-800 text-white px-6 pb-2 pt-2.5 text-base font-bold leading-normal shadow-[0_4px_9px_-4px_#3b71ca] 
+            transition duration-150 ease-in-out  hover:bg-black hover:text-amber-400
             hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
             @click="addToCart(product.id, productQty)"
             >
@@ -96,10 +96,10 @@
         </div>
           <button
             type="button"
-            class="block w-full mb-6 rounded bg-gray-100 px-6 pb-2 pt-2.5 text-base font-bold leading-normal shadow shadow-gray-500 
+            class="block w-full mb-6 rounded   bg-amber-400 px-6 pb-2 pt-2.5 text-base font-bold leading-normal shadow  shadow-gray-500 
             transition duration-150 ease-in-out hover:bg-black hover:text-white 
             hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-            @click="goToOrdersView"
+            @click="buyNow(product.id, productQty)"
             >
             立即購買
           </button>
@@ -219,9 +219,10 @@ export default {
       }
     }
 
-    function goToOrdersView() {
-      toggleCartDropdown();
-      navigateTo({ path: '/ordersView' });
+    function buyNow(id, qty) {
+      // toggleCartDropdown();
+      addToCart(id, qty);
+      navigateTo({ path: '/frontStage/ordersView' });
     }
 
     const confirm = ref({
@@ -249,7 +250,7 @@ export default {
       getProduct,
       addToCart,
       hideInfoModal,
-      goToOrdersView,
+      buyNow,
       confirm,
       sameCategoryProducts,
       infoModal,

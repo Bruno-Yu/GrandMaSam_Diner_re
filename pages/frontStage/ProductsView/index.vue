@@ -68,6 +68,7 @@
               bottom-20 right-20
               bg-white
               text-base
+              hidden
               z-[1000]
               w-[20rem]
               outline outline-offset-4 outline-1 outline-black/30 

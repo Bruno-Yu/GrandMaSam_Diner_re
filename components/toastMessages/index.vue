@@ -5,7 +5,7 @@
     <div
       v-for="(message, key) in messages"
       :key="key"
-      class=" z-[1500] max-w-screen-sm text-base min-w-[250px] mb-2"
+      class=" z-[1500] max-w-screen-sm text-base min-w-[250px] mb-2 outline  rounded-lg outline-offset-4 outline-1 outline-black/30"
       role="alert"
     >
       <div class="flex items-center justify-between rounded-t-lg border-b-2 border-neutral-100 border-opacity-100 bg-white bg-clip-padding px-4 py-2 dark:border-opacity-50 dark:bg-neutral-600">

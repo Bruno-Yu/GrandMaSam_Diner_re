@@ -335,15 +335,41 @@ export const useApiModal = () => {
     if (res.success) {
       // console.log(res);
       getCart()
-      userStore.$patch((state) => { state.messageContent.message = res.message });
+      userStore.$patch((state) => {
+        const message = {
+          title: '提示',
+          content: res.message ,
+          style: 'success',
+        }
+        state.toastMessages.push(message);
+      })
     } else {
       if (typeof res.response.data.message === 'string') {
-        userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
+        userStore.$patch((state) => {
+        const message = {
+          title: '提示',
+          content: res.response.data.message ,
+          style: 'success',
+        }
+        state.toastMessages.push(message);
+      })
+        // userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
       } else {
         userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
+        res.response.data.message.forEach(msg=>{
+        userStore.$patch((state) => {
+        const message = {
+          title: '提示',
+          content: msg ,
+          style: 'success',
+        }
+        state.toastMessages.push(msg);
+      })
+        })
+        
       }
     }
-    infoModal.value.openModal();
+    // infoModal.value.openModal();
   }
 
   // 刪除購物車

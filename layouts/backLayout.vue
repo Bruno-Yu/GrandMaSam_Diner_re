@@ -138,6 +138,7 @@
   </ul>
 </nav>
   <div class="col-span-7">
+    <toastMessages />
     <slot />
   </div>
   </main>
