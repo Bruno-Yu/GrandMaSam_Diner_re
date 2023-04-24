@@ -366,6 +366,7 @@ export const useApiModal = () => {
     hideModal,
     openNewModal,
     login,
+    checkQty,
     checkLoginStatus,
     logOut,
     getAdminShown,

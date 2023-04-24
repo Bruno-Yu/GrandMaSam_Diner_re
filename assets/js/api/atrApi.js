@@ -106,6 +106,42 @@ class atrApi extends Api {
     return res;
   }
 
+      // user 新增 訂單
+  static async generateOrder( { name, email, tel, address, message }) {
+    const params = {
+    'data':{ 
+      'user':{
+        name,
+        email,
+        tel,
+        address
+      },
+      message,
+      }
+    };
+    const res = await this.callAxios('POST', `${apiPrefix}api/${apiPath}/order`, params, undefined, undefined, false);
+    return res;
+  }
+
+
+    // user 取得全部訂單
+  static async getOrders() {
+    const res = await this.callAxios('GET', `${apiPrefix}api/${apiPath}/orders`, null, undefined, undefined, false);
+    return res;
+  }
+
+    // user 取得單一訂單
+  static async getOrder(id) {
+    const res = await this.callAxios('GET', `${apiPrefix}api/${apiPath}/order/${id}`, null, undefined, undefined, false);
+    return res;
+  }
+
+  // 確認付款
+  static async confirmToPay(id) {
+    const res = await this.callAxios('POST', `${apiPrefix}api/${apiPath}/pay/${id}`, null, undefined, undefined, true);
+    
+    return res;
+  }
 
   // admin 取得全部產品
   static async getAdminProducts({page, category}) {
@@ -221,21 +257,7 @@ class atrApi extends Api {
     return res;
   }
 
-  // 成立訂單 
-  static async confirmToFormOrder(data){
-    const params = {
-      data,
-    }
-    const res = await this.callAxios('POST', `${apiPrefix}api/${apiPath}/order`, params, undefined, undefined, false);
-    return res;
-  }
 
-  // 確認付款
-  static async confirmToPay(id) {
-    const res = await this.callAxios('POST', `${apiPrefix}api/${apiPath}/pay/${id}`, null, undefined, undefined, true);
-    
-    return res;
-  }
 }
 
 export default atrApi;

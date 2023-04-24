@@ -50,7 +50,7 @@
           </ol>
         </nav>
         <h1 class="text-4xl font-bold my-6">{{ product.title }}</h1>
-        <p class="text-base text-right line-through text-neutral-500 mt-5">{{ product.origin_price }}</p>
+        <p class="text-base text-right line-through text-neutral-500 ">{{ product.origin_price }}</p>
         <p class="text-2xl font-bold text-right ">{{ `TWD ${product.price}` }} <span class='text-lg' >{{ ` / ${product.unit}` }}</span></p>
         <div class="grid grid-cols-2 gap-4 my-6">
           <!-- 加減處 -->
@@ -94,6 +94,15 @@
             加入購物車
           </button>
         </div>
+          <button
+            type="button"
+            class="block w-full mb-6 rounded bg-gray-100 px-6 pb-2 pt-2.5 text-base font-bold leading-normal shadow shadow-gray-500 
+            transition duration-150 ease-in-out hover:bg-black hover:text-white 
+            hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+            @click="goToOrdersView"
+            >
+            立即購買
+          </button>
         <div class="my-4">
           <h3 class="text-2xl font-bold mb-2">商品規格</h3>
           <p class="text-neutral-500">{{ product.content }}</p>
@@ -118,8 +127,8 @@
           :autoplay="true"
           :navigation="true"
           :pagination="{
-            clickable: true,
-          }"
+              clickable: true,
+            }"
           :modules="likesModules"
           class="likesSwiper"
         >
@@ -210,6 +219,11 @@ export default {
       }
     }
 
+    function goToOrdersView() {
+      toggleCartDropdown();
+      navigateTo({ path: '/ordersView' });
+    }
+
     const confirm = ref({
       confirmName: '加入購物車',
       confirmBtn: addToCart,
@@ -235,6 +249,7 @@ export default {
       getProduct,
       addToCart,
       hideInfoModal,
+      goToOrdersView,
       confirm,
       sameCategoryProducts,
       infoModal,

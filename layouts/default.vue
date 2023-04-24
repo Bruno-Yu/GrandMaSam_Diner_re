@@ -53,7 +53,7 @@
                   mt-2
                   lg:mt-0
                   mr-auto
-                " to="/" exact-active-class="no-active"  @click.prevent="closeCartDropdown">
+                " to="/frontStage" exact-active-class="no-active" >
             <p class=" text-gray-900 text-3xl font-serif">GRANDMA SAM DINER</p>
             <p class=" text-gray-900 text-base text-center font-serif"> LET MAKE AMERICA GREAT AGAIN</p>
           </NuxtLink>
@@ -61,15 +61,15 @@
           <ul class="navbar-nav flex flex-col pl-0 list-style-none ms-auto">
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-gray-500  text-base hover:text-amber-400 focus:text-amber-400 p-0"
-                to="/frontStage" @click.prevent="closeCartDropdown"><i class="bi bi-journals"></i> 故事 </NuxtLink>
+                to="/frontStage"><i class="bi bi-journals"></i> 故事 </NuxtLink>
             </li>
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-gray-500 text-base hover:text-amber-400 focus:text-amber-400 p-0"
-                to="/frontStage/productsView"  @click.prevent="closeCartDropdown"><i class="bi bi-shop"></i> 商店 </NuxtLink>
+                to="/frontStage/productsView" ><i class="bi bi-shop"></i> 商店 </NuxtLink>
             </li>
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-gray-500 text-base hover:text-amber-400 focus:text-amber-400 p-0"
-                to="/frontStage/challengesView" @click.prevent="closeCartDropdown"><i class="bi bi-flag"></i> 挑戰 </NuxtLink>
+                to="/frontStage/challengesView"><i class="bi bi-flag"></i> 挑戰 </NuxtLink>
             </li>
             <!-- <li class="nav-item p-2">
             <RouterLink class="nav-link text-gray-500 hover:text-amber-400 focus:text-amber-400 p-0" to="shoppingCart">購物車
@@ -85,15 +85,15 @@
             </RouterLink> -->
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-base text-gray-500 hover:text-amber-400 focus:text-amber-400 p-0"
-                to="/frontStage/ordersView"  @click.prevent="closeCartDropdown"><i class="bi bi-bag"></i> 訂購 </NuxtLink>
+                to="/frontStage/ordersView" ><i class="bi bi-bag"></i> 訂購 </NuxtLink>
             </li>
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-base text-gray-500 hover:text-amber-400 focus:text-amber-400 p-0"
-                to="/frontStage/billboardView" @click.prevent="closeCartDropdown"><i class="bi bi-megaphone"></i> 公告 </NuxtLink>
+                to="/frontStage/billboardView"><i class="bi bi-megaphone"></i> 公告 </NuxtLink>
             </li>
             <li class="nav-item p-2">
               <NuxtLink class="nav-link text-base text-gray-500 hover:text-amber-400 focus:text-amber-400 p-0"
-                to="/frontStage/loginView" @click.prevent="closeCartDropdown"><i class="bi bi-person"></i> 登入 </NuxtLink>
+                to="/frontStage/loginView"><i class="bi bi-person"></i> 登入 </NuxtLink>
             </li>
             <!-- <li class="nav-item p-2">
             <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" href="#">註冊</a>

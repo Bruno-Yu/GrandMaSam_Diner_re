@@ -23,8 +23,8 @@
               :navigation="true"
               :freeMode="true"
               :pagination="{
-                clickable: true,
-              }"
+                  clickable: true,
+                }"
               :modules="modules"
               class="mySwiper"
             >
@@ -231,7 +231,7 @@ export default {
     //     // const router = useRouter();
     function goToOrdersView() {
       toggleCartDropdown();
-      navigateTo({ path: '/orders' });
+      navigateTo({ path: '/frontStage/ordersView' });
     }
 
     onMounted(() => {
