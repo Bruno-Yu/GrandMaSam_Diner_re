@@ -388,7 +388,7 @@ const nextStep = ['確認', '確認', '確認訂單', '立即付款', '回到商
 
 export default {
   setup() {
-    const { hideInfoModal, infoModal, getCart, cartProducts, finalTotal, totalQty, deleteCartProduct, checkQty } = useApiModal();
+    const { hideInfoModal, infoModal, getCart, cartProducts, finalTotal, totalQty, deleteCartProduct, checkQty, catchErrorToast, catchErrorModal, } = useApiModal();
     const { userStore } = useStore();
     // const store = userStore();
     const { messageContent } = storeToRefs(userStore);
@@ -450,11 +450,12 @@ export default {
         productQty.value = 1;
         userStore.$patch((state) => { state.messageContent.message = res.message });
       } else {
-        if (typeof res.response.data.message === 'string') {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
-        } else {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
-        }
+        catchErrorModal(res.response.data.message);
+        // if (typeof res.response.data.message === 'string') {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
+        // } else {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
+        // }
       }
       infoModal.value.openModal();
     }
@@ -483,7 +484,7 @@ export default {
 
         confirmToPay();
       } else {
-        router.push('/frontStage');
+        router.push('/frontStage/productsView');
       }
     }
 
@@ -502,11 +503,12 @@ export default {
         getOrder();
 
       } else {
-        if (typeof res.response.data.message === 'string') {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
-        } else {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
-        }
+        catchErrorModal(res.response.data.message);
+        // if (typeof res.response.data.message === 'string') {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
+        // } else {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
+        // }
       }
       infoModal.value.openModal();
     }
@@ -527,11 +529,12 @@ export default {
         }
         currentStatus.value += 1;
       } else {
-        if (typeof res.response.data.message === 'string') {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
-        } else {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
-        }
+        catchErrorModal(res.response.data.message);
+        // if (typeof res.response.data.message === 'string') {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
+        // } else {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
+        // }
       }
       infoModal.value.openModal();
     }
@@ -544,11 +547,12 @@ export default {
         getOrder();
         currentStatus.value += 1;
       } else {
-        if (typeof res.response.data.message === 'string') {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
-        } else {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
-        }
+        catchErrorModal(res.response.data.message);
+        // if (typeof res.response.data.message === 'string') {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
+        // } else {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
+        // }
       }
       infoModal.value.openModal();
     }

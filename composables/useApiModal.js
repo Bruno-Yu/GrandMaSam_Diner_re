@@ -81,7 +81,47 @@ export const useApiModal = () => {
     editModal.value.openModal()
   }
 
+
   //  六角 api 相關程式碼
+  //  共用錯誤 modal 提示
+      function catchErrorModal(message){
+    if (typeof message === 'string') {
+        userStore.$patch((state) => {
+          state.messageContent.message = message
+        })
+      } else {
+        userStore.$patch((state) => {
+          state.messageContent.message = message.join(', ')
+        })
+      }
+  }
+  // 共用錯誤 toast 提示
+  function catchErrorToast(messages){
+    if (typeof messages === 'string') {
+            userStore.$patch((state) => {
+            const message = {
+              title: '提示',
+              content: messages ,
+              style: 'success',
+            }
+            state.toastMessages.push(message);
+          })
+        
+      } else if (typeof messages === 'object') { {
+        message.forEach(msg=>{
+          userStore.$patch((state) => {
+          const  singleMsg= {
+            title: '提示',
+            content: msg ,
+            style: 'success',
+          }
+          state.toastMessages.push(singleMsg);
+        })
+        })
+        
+      }
+  }
+}
 
   // 登入
   async function login(username, password, path = '/backStage') {
@@ -99,9 +139,10 @@ export const useApiModal = () => {
       // router.push(path)
       navigateTo({ path })
     } else {
-      userStore.$patch((state) => {
-        state.messageContent.message = res.response.data.message
-      })
+      // userStore.$patch((state) => {
+      //   state.messageContent.message = res.response.data.message
+      // })
+      catchErrorModal( res.response.data.message);
       loaderHide()
       infoModal.value.openModal()
     }
@@ -124,9 +165,10 @@ export const useApiModal = () => {
       // router.push(path);
       navigateTo({ path })
     } else {
-      userStore.$patch((state) => {
-        state.messageContent.message = res.response.data.message
-      })
+      // userStore.$patch((state) => {
+      //   state.messageContent.message = res.response.data.message
+      // })
+      catchErrorModal( res.response.data.message);
       loaderHide()
       infoModal.value.openModal()
     }
@@ -160,15 +202,16 @@ export const useApiModal = () => {
       })
     } else {
       loaderHide()
-      if (typeof res.response.data.message === 'string') {
-        userStore.$patch((state) => {
-          state.messageContent.message = res.response.data.message
-        })
-      } else {
-        userStore.$patch((state) => {
-          state.messageContent.message = res.response.data.message.join(', ')
-        })
-      }
+      catchErrorToast( res.response.data.message);
+      // if (typeof res.response.data.message === 'string') {
+      //   userStore.$patch((state) => {
+      //     state.messageContent.message = res.response.data.message
+      //   })
+      // } else {
+      //   userStore.$patch((state) => {
+      //     state.messageContent.message = res.response.data.message.join(', ')
+      //   })
+      // }
     }
     loaderHide()
   }
@@ -188,18 +231,21 @@ export const useApiModal = () => {
     }
       })
     } else {
-      if (typeof res.response.data.message === 'string') {
-        userStore.$patch((state) => {
-          state.messageContent.message = res.response.data.message
-        })
-      } else {
-        userStore.$patch((state) => {
-          state.messageContent.message = res.response.data.message.join(', ')
-        })
-      }
+      catchErrorToast( res.response.data.message);
+      // if (typeof res.response.data.message === 'string') {
+      //   userStore.$patch((state) => {
+      //     state.messageContent.message = res.response.data.message
+      //   })
+      // } else {
+      //   userStore.$patch((state) => {
+      //     state.messageContent.message = res.response.data.message.join(', ')
+      //   })
+      // }
     }
     loaderHide();
   }
+
+
 
   // 管理員新增
   async function addAdminShown(data) {
@@ -218,15 +264,16 @@ export const useApiModal = () => {
       infoModal.value.openModal()
       getAdminShown()
     } else {
-      if (typeof res.response.data.message === 'string') {
-        userStore.$patch((state) => {
-          state.messageContent.message = res.response.data.message
-        })
-      } else {
-        userStore.$patch((state) => {
-          state.messageContent.message = res.response.data.message.join(', ')
-        })
-      }
+      catchErrorModal( res.response.data.message);
+      // if (typeof res.response.data.message === 'string') {
+      //   userStore.$patch((state) => {
+      //     state.messageContent.message = res.response.data.message
+      //   })
+      // } else {
+      //   userStore.$patch((state) => {
+      //     state.messageContent.message = res.response.data.message.join(', ')
+      //   })
+      // }
       infoModal.value.openModal()
     }
     loaderHide()
@@ -251,15 +298,16 @@ export const useApiModal = () => {
       infoModal.value.openModal()
       getAdminShown()
     } else {
-      if (typeof res.response.data.message === 'string') {
-        userStore.$patch((state) => {
-          state.messageContent.message = res.response.data.message
-        })
-      } else {
-        userStore.$patch((state) => {
-          state.messageContent.message = res.response.data.message.join(', ')
-        })
-      }
+      // if (typeof res.response.data.message === 'string') {
+      //   userStore.$patch((state) => {
+      //     state.messageContent.message = res.response.data.message
+      //   })
+      // } else {
+      //   userStore.$patch((state) => {
+      //     state.messageContent.message = res.response.data.message.join(', ')
+      //   })
+      // }
+      catchErrorModal( res.response.data.message);
       infoModal.value.openModal()
     }
     loaderHide()
@@ -282,15 +330,16 @@ export const useApiModal = () => {
       })
       getAdminShown()
     } else {
-      if (typeof res.response.data.message === 'string') {
-        userStore.$patch((state) => {
-          state.messageContent.message = res.response.data.message
-        })
-      } else {
-        userStore.$patch((state) => {
-          state.messageContent.message = res.response.data.message.join(', ')
-        })
-      }
+      // if (typeof res.response.data.message === 'string') {
+      //   userStore.$patch((state) => {
+      //     state.messageContent.message = res.response.data.message
+      //   })
+      // } else {
+      //   userStore.$patch((state) => {
+      //     state.messageContent.message = res.response.data.message.join(', ')
+      //   })
+      // }
+      catchErrorModal( res.response.data.message);
     }
     loaderHide()
     infoModal.value.openModal()
@@ -308,15 +357,16 @@ export const useApiModal = () => {
       finalTotal.value = res.data.final_total
       totalQty.value = checkQty(res.data.carts)
     } else {
-      if (typeof res.response.data.message === 'string') {
-        userStore.$patch((state) => {
-          state.messageContent.message = res.response.data.message
-        })
-      } else {
-        userStore.$patch((state) => {
-          state.messageContent.message = res.response.data.message.join(', ')
-        })
-      }
+      catchErrorToast( res.response.data.message);
+      // if (typeof res.response.data.message === 'string') {
+      //   userStore.$patch((state) => {
+      //     state.messageContent.message = res.response.data.message
+      //   })
+      // } else {
+      //   userStore.$patch((state) => {
+      //     state.messageContent.message = res.response.data.message.join(', ')
+      //   })
+      // }
     }
   }
   function checkQty(carts) {
@@ -344,30 +394,31 @@ export const useApiModal = () => {
         state.toastMessages.push(message);
       })
     } else {
-      if (typeof res.response.data.message === 'string') {
-        userStore.$patch((state) => {
-        const message = {
-          title: '提示',
-          content: res.response.data.message ,
-          style: 'success',
-        }
-        state.toastMessages.push(message);
-      })
-        // userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
-      } else {
-        userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
-        res.response.data.message.forEach(msg=>{
-        userStore.$patch((state) => {
-        const message = {
-          title: '提示',
-          content: msg ,
-          style: 'success',
-        }
-        state.toastMessages.push(msg);
-      })
-        })
+      catchErrorToast( res.response.data.message);
+      // if (typeof res.response.data.message === 'string') {
+      //   userStore.$patch((state) => {
+      //   const message = {
+      //     title: '提示',
+      //     content: res.response.data.message ,
+      //     style: 'success',
+      //   }
+      //   state.toastMessages.push(message);
+      // })
+      //   // userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
+      // } else {
+      //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
+      //   res.response.data.message.forEach(msg=>{
+      //   userStore.$patch((state) => {
+      //   const message = {
+      //     title: '提示',
+      //     content: msg ,
+      //     style: 'success',
+      //   }
+      //   state.toastMessages.push(msg);
+      // })
+      //   })
         
-      }
+      // }
     }
     // infoModal.value.openModal();
   }
@@ -386,6 +437,8 @@ export const useApiModal = () => {
     showEditModal,
     showInfoModal,
     hideInfoModal,
+    catchErrorToast,
+    catchErrorModal,
     isNew,
     openDeleteModal,
     openModal,

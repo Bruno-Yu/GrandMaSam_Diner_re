@@ -160,7 +160,8 @@ export default {
     const { userStore } = useStore();
 
     const { messageContent } = storeToRefs(userStore);
-    const { hideInfoModal, infoModal, addToCart, getCart, cartProducts, finalTotal, deleteCartProduct } = useApiModal();
+    const { hideInfoModal, infoModal, addToCart, getCart, cartProducts, finalTotal, deleteCartProduct, catchErrorToast,
+      catchErrorModal } = useApiModal();
     const categories = ref([]);
     const products = ref([]);
     const pagination = ref([]);
@@ -176,11 +177,12 @@ export default {
         categories.value.unshift('未亡人系列');
         categories.value.unshift('全部');
       } else {
-        if (typeof res.response.data.message === 'string') {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
-        } else {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
-        }
+        catchErrorToast(res.response.data.message);
+        // if (typeof res.response.data.message === 'string') {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
+        // } else {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
+        // }
       }
     }
 
@@ -191,11 +193,12 @@ export default {
         products.value = JSON.parse(JSON.stringify(res.products));
         pagination.value = JSON.parse(JSON.stringify(res.pagination));
       } else {
-        if (typeof res.response.data.message === 'string') {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
-        } else {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
-        }
+        catchErrorToast(res.response.data.message);
+        // if (typeof res.response.data.message === 'string') {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
+        // } else {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
+        // }
       }
     }
 

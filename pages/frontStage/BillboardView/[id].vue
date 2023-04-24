@@ -26,7 +26,7 @@
   v-html="article.description"
   ></p>
 </blockquote>
-<info-modal class="infoModal" ref="infoModal" :content="messageContent" @hide-modal="hideInfoModal" />
+<!-- <info-modal class="infoModal" ref="infoModal" :content="messageContent" @hide-modal="hideInfoModal" /> -->
 <div class=" mb-5" v-html="article.content" />
 </main>
 </template>
@@ -45,10 +45,9 @@ export default {
   setup() {
     const route = useRoute();
     const router = useRouter();
-    const { userStore } = useStore();
-    // const { hideInfoModal, messageContent, useApiModal } = useApiModal();
-    const { messageContent } = storeToRefs(userStore);
-    const { hideInfoModal, infoModal } = useApiModal();
+    // const { userStore } = useStore();
+    // const { messageContent } = storeToRefs(userStore);
+    const { catchErrorToast } = useApiModal();
     const article = ref({});
 
     async function getArticle(id) {
@@ -56,13 +55,15 @@ export default {
       if (res.success) {
         article.value = JSON.parse(JSON.stringify(res.article));
       } else {
-        if (typeof res.response.data.message === 'string') {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message });
-          // infoModal.value.openModal();
-          router.push('/notFound');
-        } else {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
-        }
+        catchErrorToast(res.response.data.message);
+        router.push('/notFound');
+        // if (typeof res.response.data.message === 'string') {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message });
+        //   // infoModal.value.openModal();
+        //   router.push('/notFound');
+        // } else {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
+        // }
       }
     }
 
@@ -75,12 +76,10 @@ export default {
     });
 
     return {
-      messageContent,
-      useApiModal,
-      hideInfoModal,
+      //  catchErrorToast,
       article,
       getArticleImage,
-      infoModal
+      // infoModal
       // swiper,
     }
 
