@@ -67,14 +67,11 @@ export const useApiModal = () => {
 
   function openModal(item) {
     userStore.$patch({ currentItem: item })
-    // currentItem.value = item;
     isNew.value = false
-    // console.log('useModal_1',editModal )
     editModal.value.openModal()
   }
   function hideModal() {
     editModal.value.hideModal()
-    // console.log('useModal_2',editModal )
   }
   function openNewModal() {
     isNew.value = true
@@ -139,9 +136,6 @@ export const useApiModal = () => {
       // router.push(path)
       navigateTo({ path })
     } else {
-      // userStore.$patch((state) => {
-      //   state.messageContent.message = res.response.data.message
-      // })
       catchErrorModal( res.response.data.message);
       loaderHide()
       infoModal.value.openModal()
@@ -152,7 +146,6 @@ export const useApiModal = () => {
   async function checkLoginStatus(path = '/frontStage') {
     const res = await atrApi.checkLoginStatus()
     if (!res.success) {
-      // router.push(path);
       navigateTo({ path })
     }
   }
@@ -162,12 +155,8 @@ export const useApiModal = () => {
     const res = await atrApi.logOut()
     if (res.success) {
       loaderHide()
-      // router.push(path);
       navigateTo({ path })
     } else {
-      // userStore.$patch((state) => {
-      //   state.messageContent.message = res.response.data.message
-      // })
       catchErrorModal( res.response.data.message);
       loaderHide()
       infoModal.value.openModal()
@@ -185,33 +174,30 @@ export const useApiModal = () => {
     let res;
     if(userStore.currentPosition === '/backStage/billboardAdmin'){
       res = await atrApi.getAdminArticles(params);
-    } else if(userStore.currentPosition === '/backStage'){
+    } else if(userStore.currentPosition === '/backStage/productsAdmin'){
       res = await atrApi.getAdminProducts(params);
+    } else if(userStore.currentPosition === '/backStage/challengesAdmin'){
+      res = await atrApi.getAdminChallenges(params);
+    }else if(userStore.currentPosition === '/backStage/ordersAdmin'){
+      res = await atrApi.getAdminOrders(params);
     }
-    // const res = await atrApi.getAdminArticles(params);
     if (res.success) {
-      // console.log(res.products)
       loaderHide()
       pagination.value = JSON.parse(JSON.stringify(res.pagination));
       userStore.$patch((state) => {
         if(userStore.currentPosition === '/backStage/billboardAdmin'){
       state.adminShown = JSON.parse(JSON.stringify(res.articles));
-    } else if(userStore.currentPosition === '/backStage'){
+    } else if(userStore.currentPosition === '/backStage/productsAdmin'){
         state.adminShown = JSON.parse(JSON.stringify(res.products));
+    }else if(userStore.currentPosition === '/backStage/challengesAdmin'){
+        state.adminShown = JSON.parse(JSON.stringify(res.coupons));
+    }else if(userStore.currentPosition === '/backStage/ordersAdmin'){
+        state.adminShown = JSON.parse(JSON.stringify(res.orders));
     }
       })
     } else {
       loaderHide()
       catchErrorToast( res.response.data.message);
-      // if (typeof res.response.data.message === 'string') {
-      //   userStore.$patch((state) => {
-      //     state.messageContent.message = res.response.data.message
-      //   })
-      // } else {
-      //   userStore.$patch((state) => {
-      //     state.messageContent.message = res.response.data.message.join(', ')
-      //   })
-      // }
     }
     loaderHide()
   }
@@ -221,26 +207,23 @@ export const useApiModal = () => {
     let res;
     if(userStore.currentPosition === '/backStage/billboardAdmin'){
       res = await atrApi.getAdminArticle(id);
-    } 
-    // const res = await atrApi.getAdminArticles(params);
+    } else if(userStore.currentPosition === '/backStage/challengesAdmin'){
+      res = await atrApi.getAdminChallenge(id);
+    }else if(userStore.currentPosition === '/backStage/ordersAdmin'){
+      res = await atrApi.getAdminOrder(id);
+    }
     if (res.success) {
-      // console.log(res.products)
       userStore.$patch((state) => {
         if(userStore.currentPosition === '/backStage/billboardAdmin'){
       state.currentItem = JSON.parse(JSON.stringify(res.article));
+    }else if(userStore.currentPosition === '/backStage/challengesAdmin'){
+      state.currentItem = JSON.parse(JSON.stringify(res.data));
+    }else if(userStore.currentPosition === '/backStage/ordersAdmin'){
+      state.currentItem = JSON.parse(JSON.stringify(res.data));
     }
       })
     } else {
       catchErrorToast( res.response.data.message);
-      // if (typeof res.response.data.message === 'string') {
-      //   userStore.$patch((state) => {
-      //     state.messageContent.message = res.response.data.message
-      //   })
-      // } else {
-      //   userStore.$patch((state) => {
-      //     state.messageContent.message = res.response.data.message.join(', ')
-      //   })
-      // }
     }
     loaderHide();
   }
@@ -253,8 +236,10 @@ export const useApiModal = () => {
     let res;
     if(userStore.currentPosition ===  '/backStage/billboardAdmin'){
       res = await atrApi.addAdminArticle(data);
-    } else if(userStore.currentPosition ===  '/backStage'){
+    } else if(userStore.currentPosition ===  '/backStage/productsAdmin'){
       res = await atrApi.addAdminProduct(data);
+    }else if(userStore.currentPosition === '/backStage/challengesAdmin'){
+      res = await atrApi.addAdminChallenge(data);
     }
     if (res.success) {
       editModal.value.hideModal()
@@ -265,15 +250,6 @@ export const useApiModal = () => {
       getAdminShown()
     } else {
       catchErrorModal( res.response.data.message);
-      // if (typeof res.response.data.message === 'string') {
-      //   userStore.$patch((state) => {
-      //     state.messageContent.message = res.response.data.message
-      //   })
-      // } else {
-      //   userStore.$patch((state) => {
-      //     state.messageContent.message = res.response.data.message.join(', ')
-      //   })
-      // }
       infoModal.value.openModal()
     }
     loaderHide()
@@ -284,13 +260,14 @@ export const useApiModal = () => {
     const { id } = data
     // const res = await atrApi.editAdminProduct(id, data)
         let res;
-    if(userStore.currentPosition ===  '/backStage/billboardAdmin'){
+    if(userStore.currentPosition === '/backStage/billboardAdmin'){
       res = await atrApi.editAdminArticle(id, data);
-    } else if(userStore.currentPosition ===  '/backStage'){
+    } else if(userStore.currentPosition === '/backStage/productsAdmin'){
       res = await atrApi.editAdminProduct(id, data);
+    }else if(userStore.currentPosition === '/backStage/challengesAdmin'){
+      res = await atrApi.editAdminChallenge(id, data);
     }
     if (res.success) {
-      // console.log('useApi editModal',editModal )
       editModal.value.hideModal()
       userStore.$patch((state) => {
         state.messageContent.message = res.message
@@ -298,15 +275,6 @@ export const useApiModal = () => {
       infoModal.value.openModal()
       getAdminShown()
     } else {
-      // if (typeof res.response.data.message === 'string') {
-      //   userStore.$patch((state) => {
-      //     state.messageContent.message = res.response.data.message
-      //   })
-      // } else {
-      //   userStore.$patch((state) => {
-      //     state.messageContent.message = res.response.data.message.join(', ')
-      //   })
-      // }
       catchErrorModal( res.response.data.message);
       infoModal.value.openModal()
     }
@@ -317,12 +285,15 @@ export const useApiModal = () => {
 
     infoModal.value.hideModal();
     loaderShow()
-    // const res = await atrApi.deleteAdminProduct(userStore.currentItem?.id)
     let res;
-    if(userStore.currentPosition ===  '/backStage/billboardAdmin'){
+    if(userStore.currentPosition === '/backStage/billboardAdmin'){
       res = await atrApi.deleteAdminArticle(userStore.currentItem?.id);
-    } else if(userStore.currentPosition ===  '/backStage'){
+    } else if(userStore.currentPosition === '/backStage/productsAdmin'){
       res = await atrApi.deleteAdminProduct(userStore.currentItem?.id);
+    }else if(userStore.currentPosition === '/backStage/challengesAdmin'){
+      res = await atrApi.deleteAdminChallenge(userStore.currentItem?.id);
+    }else if(userStore.currentPosition === '/backStage/ordersAdmin'){
+      res = await atrApi.deleteAdminOrder(userStore.currentItem?.id);
     }
     if (res.success) {
       userStore.$patch((state) => {
@@ -330,15 +301,6 @@ export const useApiModal = () => {
       })
       getAdminShown()
     } else {
-      // if (typeof res.response.data.message === 'string') {
-      //   userStore.$patch((state) => {
-      //     state.messageContent.message = res.response.data.message
-      //   })
-      // } else {
-      //   userStore.$patch((state) => {
-      //     state.messageContent.message = res.response.data.message.join(', ')
-      //   })
-      // }
       catchErrorModal( res.response.data.message);
     }
     loaderHide()
@@ -358,15 +320,6 @@ export const useApiModal = () => {
       totalQty.value = checkQty(res.data.carts)
     } else {
       catchErrorToast( res.response.data.message);
-      // if (typeof res.response.data.message === 'string') {
-      //   userStore.$patch((state) => {
-      //     state.messageContent.message = res.response.data.message
-      //   })
-      // } else {
-      //   userStore.$patch((state) => {
-      //     state.messageContent.message = res.response.data.message.join(', ')
-      //   })
-      // }
     }
   }
   function checkQty(carts) {
@@ -395,32 +348,7 @@ export const useApiModal = () => {
       })
     } else {
       catchErrorToast( res.response.data.message);
-      // if (typeof res.response.data.message === 'string') {
-      //   userStore.$patch((state) => {
-      //   const message = {
-      //     title: '提示',
-      //     content: res.response.data.message ,
-      //     style: 'success',
-      //   }
-      //   state.toastMessages.push(message);
-      // })
-      //   // userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
-      // } else {
-      //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
-      //   res.response.data.message.forEach(msg=>{
-      //   userStore.$patch((state) => {
-      //   const message = {
-      //     title: '提示',
-      //     content: msg ,
-      //     style: 'success',
-      //   }
-      //   state.toastMessages.push(msg);
-      // })
-      //   })
-        
-      // }
     }
-    // infoModal.value.openModal();
   }
 
   // 刪除購物車

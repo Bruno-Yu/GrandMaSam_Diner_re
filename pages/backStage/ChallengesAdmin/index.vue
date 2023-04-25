@@ -7,22 +7,22 @@
         <div class="absolute left-[180px] -bottom-[120px] h-52 w-52 bg-amber-500/50"></div>
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="py-4 min-w-full flex flex-col sm:px-6 lg:px-8">
-            <h2 class="text-5xl font-bold pt-5 pb-8 underline decoration-4 decoration-amber-400">公告管理</h2>
+            <h2 class="text-5xl font-bold pt-5 pb-8 underline decoration-4 decoration-amber-400">挑戰管理</h2>
             <div class="overflow-hidden border border-solid border-gray-300 mt-12 bg-white">
               <table class="min-w-full text-center ">
                 <thead class="border-b bg-black">
                   <tr>
                     <th scope="col" class="font-medium text-white px-6 py-2">
-                      標題
+                      名稱
                     </th>
                     <th scope="col" class="font-medium text-white px-6 py-2">
-                      作者
+                      挑戰百分比
                     </th>
                     <th scope="col" class="font-medium text-white px-6 py-2">
-                      建立時間
+                      到期日
                     </th>
                     <th scope="col" class="font-medium text-white px-6 py-2">
-                      是否公開
+                      是否啟用
                     </th>
                     <th scope="col" class="font-medium text-white px-6 py-2">
                       編輯
@@ -33,10 +33,10 @@
                   <tr class="bg-white border-b" v-for="item in adminShown" :key="item.id">
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-left font-bold text-gray-900"> {{ item.title }}</td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      {{ item.author }}
+                      {{ item.percent }} %
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      {{ item.create_at }}
+                      {{ dayjs(item.due_date).format('YYYY-MM-DD') }}
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       <div class="flex justify-center">
@@ -103,14 +103,14 @@
             </div>
           </div>
         </div>
-        <p class="pl-2 font-semibold">目前頁面產品共 {{ Object.keys(adminShown)?.length }} 項</p>
+        <p class="pl-2 font-semibold">目前頁面挑戰共 {{ Object.keys(adminShown)?.length }} 項</p>
       </div>
       <div class="h-screen ">
         <div class="flex flex-col h-full p-2" :class="{ 'bg-black': Object.keys(currentItem).length, 'bg-white': !Object.keys(currentItem).length }">
           <div class="flex justify-end mt-5 mb-14 mx-5">
               <button type="button"
                 class="inline-block px-6 py-2 bg-amber-400 text-black text-base font-bold leading-tight uppercase rounded hover:bg-black hover:text-amber-400 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                @click="openNewModal">新增文章</button>
+                @click="openNewModal">新增挑戰</button>
             </div>
           <div v-if="Object.keys(currentItem).length > 0" class="flex flex-col justify-center p-2 ">
             <div class=" rounded mb-5">
@@ -141,70 +141,44 @@
           <!-- <p v-else class="text-gray-600">請選擇單一產品查看</p> -->
           <div v-else  class="flex flex-col justify-center items-center h-5/6" >
             <img class="block object-cover w-auto h-5/6" src="@/assets/images/choose_product.webp" alt="choose_product">
-            <p class="text-4xl font-bold">點選查詢按鈕可查看文章內容</p>
+            <p class="text-4xl font-bold">點選查詢按鈕可查看挑戰內容</p>
           </div>
         </div>
       </div>
     </div>
-    <billboard-modal class="editModal" ref="editModal" :currentItem="currentItem" :isNew="isNew"
+    <challenge-modal class="editModal" ref="editModal" :currentItem="currentItem" :isNew="isNew"
       @update-product="editAdminShown" @add-product="addAdminShown" />
     <info-modal class="infoModal" ref="infoModal" :content="messageContent" @delete-product="deleteAdminShown"
       @hide-modal="hideInfoModal" />
   </main>
 </template>
 
-<script>
+<script setup>
 import { useApiModal } from '~~/composables/useApiModal';
 import useStore from '@/store';
 import { storeToRefs } from 'pinia';
+import dayjs from 'dayjs/esm/index.js';
 
-
-export default {
-  // components: { editModal, starRating },
-  setup() {
-    definePageMeta({
-      layout: 'back-layout'
-    });
-    const { userStore } = useStore();
-    const { adminShown, currentItem, messageContent } = storeToRefs(userStore);
-    const { pagination, editModal, infoModal, hideInfoModal, isNew, openDeleteModal, openModal, hideModal, openNewModal, editAdminShown, addAdminShown, getAdminShown, getAdminSingleShown, deleteAdminShown } = useApiModal();
-    // function editArticle(data) {
-    //   editAdminShown(data);
-    // }
-    function check(item) {
-      userStore.currentItem = JSON.parse(JSON.stringify(item))
-    }
-    function editBtn(item) {
-      getAdminSingleShown(item.id);
-      openModal(userStore.currentItem);
-    }
-
-    onMounted(() => {
-      getAdminShown();
-    });
-    return {
-      adminShown,
-      currentItem,
-      editModal,
-      // editArticle,
-      infoModal,
-      messageContent,
-      openModal,
-      hideModal,
-      openNewModal,
-      openDeleteModal,
-      hideInfoModal,
-      isNew,
-      getAdminShown,
-      editAdminShown,
-      addAdminShown,
-      deleteAdminShown,
-      pagination,
-      check,
-      editBtn,
-    };
-  }
+definePageMeta({
+  layout: 'back-layout'
+});
+const { userStore } = useStore();
+const { adminShown, currentItem, messageContent } = storeToRefs(userStore);
+const { pagination, editModal, infoModal, hideInfoModal, isNew, openDeleteModal, openModal, hideModal, openNewModal, editAdminShown, addAdminShown, getAdminShown, getAdminSingleShown, deleteAdminShown } = useApiModal();
+// function editArticle(data) {
+//   editAdminShown(data);
+// }
+function check(item) {
+  userStore.currentItem = JSON.parse(JSON.stringify(item))
 }
+function editBtn(item) {
+  getAdminSingleShown(item.id);
+  openModal(userStore.currentItem);
+}
+
+onMounted(() => {
+  getAdminShown();
+});
 
 
 </script>

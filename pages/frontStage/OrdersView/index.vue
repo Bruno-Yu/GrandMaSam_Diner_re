@@ -1,10 +1,11 @@
 <template>
   <main class="px-10 py-10 mx-auto max-w-5xl mt-20">
-    <!-- progress bar -->
+    <!-- 購物車無商品時 -->
     <div v-if="!productsList.length">
       123
     </div>
     <template v-else>
+      <!-- progress bar -->
       <div>
         <div v-if="currentStatus < 4 && currentStatus >= 0" class="max-w-4xl mx-auto my-4 pb-4">	
           <div class="flex pb-3">

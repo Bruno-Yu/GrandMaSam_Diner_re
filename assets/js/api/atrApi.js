@@ -257,6 +257,83 @@ class atrApi extends Api {
     return res;
   }
 
+    // admin 取得訂單
+  static async getAdminOrders({page}) {
+    const queryPage = `?page=${page}`;
+    const res = await this.callAxios('GET', `${apiPrefix}api/${apiPath}/admin/orders`, null, undefined, undefined, true);
+    return res;
+  }
+
+  // admin 更新單一訂單
+  static async editAdminOrder(id, {create_at, is_paid, message, products, user, num }) {
+    const params = {
+    'data':{ 
+      create_at,
+      is_paid,
+      message,
+      products,
+      user,
+      num
+      }
+    };
+    const res = await this.callAxios('PUT', `${apiPrefix}api/${apiPath}/admin/order/${id}`, params, undefined, undefined, true);
+    return res;
+  }
+
+    // admin 刪除單一訂單
+    static async deleteAdminOrder(id) {
+    const res = await this.callAxios('DELETE', `${apiPrefix}api/${apiPath}/admin/order/${id}`, null, undefined, undefined, true);
+    return res;
+  }
+
+      // admin 刪除全部訂單
+    static async deleteAllAdminOrders() {
+    const res = await this.callAxios('DELETE', `${apiPrefix}api/${apiPath}/admin/orders/all`, null, undefined, undefined, true);
+    return res;
+  }
+  
+  // admin 取得挑戰
+  static async getAdminChallenges({page}) {
+    const queryPage = `?page=${page}`;
+    const res = await this.callAxios('GET', `${apiPrefix}api/${apiPath}/admin/coupons`, null, undefined, undefined, true);
+    return res;
+  }
+
+  // admin 新增挑戰
+  static async addAdminChallenge({title, is_enabled, percent, due_date, code }) {
+    const params = {
+    'data':{ 
+      title,
+      is_enabled,
+      percent,
+      due_date,
+      code
+      }
+    };
+    const res = await this.callAxios('POST', `${apiPrefix}api/${apiPath}/admin/coupon`, params, undefined, undefined, true);
+    return res;
+  }
+
+  // admin 更新單一挑戰
+  static async editAdminChallenge(id, {title, is_enabled, percent, due_date, code }) {
+    const params = {
+    'data':{ 
+      title,
+      is_enabled,
+      percent,
+      due_date,
+      code
+      }
+    };
+    const res = await this.callAxios('PUT', `${apiPrefix}api/${apiPath}/admin/coupon/${id}`, params, undefined, undefined, true);
+    return res;
+  }
+
+    // admin 刪除單一挑戰
+    static async deleteAdminChallenge(id) {
+    const res = await this.callAxios('DELETE', `${apiPrefix}api/${apiPath}/admin/coupon/${id}`, null, undefined, undefined, true);
+    return res;
+  }
 
 }
 
