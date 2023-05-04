@@ -171,7 +171,7 @@ export default {
     const route = useRoute();
     const router = useRouter();
     const { messageContent } = storeToRefs(userStore);
-    const { hideInfoModal, infoModal, addToCart } = useApiModal();
+    const { hideInfoModal, infoModal, addToCart, catchErrorToast } = useApiModal();
     const product = ref({});
     const productImages = ref([]);
     const productQty = ref(1);
@@ -193,13 +193,14 @@ export default {
         // console.log('productImages.value', res.product.imagesUrl)
         // console.log('categories.value', categories.value);
       } else {
-        if (typeof res.response.data.message === 'string') {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message });
-          // infoModal.value.openModal();
-          router.push('/notFound');
-        } else {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
-        }
+        catchErrorToast(res.response.data.message);
+        // if (typeof res.response.data.message === 'string') {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message });
+        //   // infoModal.value.openModal();
+        //   router.push('/notFound');
+        // } else {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
+        // }
       }
     }
 
@@ -211,11 +212,12 @@ export default {
         const products = JSON.parse(JSON.stringify(res.products));
         sameCategoryProducts.value = products.filter((item) => item.category === product.value.category);
       } else {
-        if (typeof res.response.data.message === 'string') {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
-        } else {
-          userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
-        }
+        // if (typeof res.response.data.message === 'string') {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
+        // } else {
+        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
+        // }
+        catchErrorToast(res.response.data.message);
       }
     }
 

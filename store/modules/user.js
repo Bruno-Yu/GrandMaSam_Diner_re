@@ -11,6 +11,7 @@ export const userStore = defineStore('userStore', {
     currentPosition: '',
     currentItem: {}, // 目前展示的產品/文章 
     toastMessages: [],
+    rawOrderData: [], // 存取 後台儀表板數據避免需打多次 api
     messageContent: {
       title: '提示',
       message: '',

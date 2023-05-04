@@ -260,7 +260,7 @@ class atrApi extends Api {
     // admin 取得訂單
   static async getAdminOrders({page}) {
     const queryPage = `?page=${page}`;
-    const res = await this.callAxios('GET', `${apiPrefix}api/${apiPath}/admin/orders`, null, undefined, undefined, true);
+    const res = await this.callAxios('GET', `${apiPrefix}api/${apiPath}/admin/orders${queryPage}`, null, undefined, undefined, true);
     return res;
   }
 

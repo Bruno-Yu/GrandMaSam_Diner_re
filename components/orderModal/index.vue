@@ -17,56 +17,7 @@
           </div>
           <div class="modal-body relative p-4">
             <div class="grid grid-cols-12 gap-4">
-              <div class="col-span-4  flex flex-col items-center">
-                <div class="mb-3 w-full">
-                  <label for="imgUrl" class="form-label font-bold inline-block mb-2 text-gray-700">輸入封面圖片網址</label>
-                  <input type="url" class="
-                      form-control
-                      block
-                      w-full
-                      px-3
-                      py-1.5
-                      text-base
-                      font-normal
-                      text-gray-700
-                      bg-white bg-clip-padding
-                      border border-solid border-gray-300
-                      rounded
-                      transition
-                      ease-in-out
-                      m-0
-                      focus:text-gray-700 focus:bg-white focus:outline-none
-                    " id="imgUrl" v-model="tempArticle.imageUrl" placeholder="請輸入圖片網址" />
-                  <img class="w-full h-auto block mt-2" :src="tempArticle.imageUrl" :alt="tempArticle.imageUrl">
-                </div>
-                <!-- <div class="flex justify-center">
-                  <div class="mb-3 w-full">
-                    <label for="imgUpload" class="form-label inline-block mb-2 text-gray-700">或 上傳圖片</label>
-                    <div v-if="imgUploadLoading"
-                      class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
-                      <span class="visually-hidden">Loading...</span>
-                    </div>
-                    <input class="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    font-normal
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:outline-none" type="file"
-                      @change="uploadImg" id="imgUpload">
-                  </div>
-                </div> -->
-                
-              </div>
-              <div class="col-span-8">
+              <div class="col-span-12">
                 <div class="flex justify-center">
                   <div class="mb-3 w-full">
                     <label for="title" class="form-label font-bold inline-block mb-2 text-gray-700">標題</label>
@@ -302,22 +253,12 @@ export default {
       bsModal.value.hide();
     }
     function confirm(order) {
-      if (isNew.value) {
-        emit('add-order', order)
-        bsModal.value.hide();
-        tempOrder.value = { ...emptyBlank };
-      } else {
-        emit('update-order', order);
-        bsModal.value.hide();
-        tempOrder.value = { ...emptyBlank };
-      }
+      emit('update-order', order);
+      bsModal.value.hide();
+      tempOrder.value = { ...emptyBlank };
     }
     watchEffect(() => {
-      if (isNew.value) {
-        tempOrder.value = { ...emptyBlank };
-      } else {
-        tempOrder.value = { ...currentItem.value };
-      }
+      tempOrder.value = { ...currentItem.value };
     })
 
     onMounted(() => {

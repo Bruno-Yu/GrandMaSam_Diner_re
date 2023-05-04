@@ -144,8 +144,7 @@ import { storeToRefs } from 'pinia';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
 import { FreeMode, Navigation } from 'swiper';
 
-// Import Swiper styles
-// import 'swiper/css';
+;
 import '@/assets/styles/categories/swiper.scss';
 import 'swiper/css/free-mode';
 import '@/assets/styles/categories/navigation.scss';
@@ -178,11 +177,6 @@ export default {
         categories.value.unshift('全部');
       } else {
         catchErrorToast(res.response.data.message);
-        // if (typeof res.response.data.message === 'string') {
-        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
-        // } else {
-        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
-        // }
       }
     }
 
@@ -194,11 +188,6 @@ export default {
         pagination.value = JSON.parse(JSON.stringify(res.pagination));
       } else {
         catchErrorToast(res.response.data.message);
-        // if (typeof res.response.data.message === 'string') {
-        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message })
-        // } else {
-        //   userStore.$patch((state) => { state.messageContent.message = res.response.data.message.join(', ') })
-        // }
       }
     }
 

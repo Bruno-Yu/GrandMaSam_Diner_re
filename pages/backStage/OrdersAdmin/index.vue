@@ -35,7 +35,7 @@
                 </thead>
                 <tbody>
                   <tr class="bg-white border-b" v-for="item in adminShown" :key="item.id">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-left font-bold text-gray-900"> {{ dayjs(item.create_at).format('YYYY-MM-DD') }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-left font-bold text-gray-900"> {{ dayjs(item.create_at * 1000).format('YYYY/MM/DD') }}</td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       {{ item.user.email }}
                     </td>
@@ -119,9 +119,9 @@
       </div>
       <div class="h-screen p-2" :class="{ 'bg-black': Object.keys(currentItem).length, 'bg-white': !Object.keys(currentItem).length }">
         <div class="flex justify-end my-5 mx-5 ">
-          <button type="button"
+          <!-- <button type="button"
             class="inline-block px-6 py-2 bg-amber-400 text-black text-base font-bold leading-tight uppercase rounded hover:bg-black hover:text-amber-400 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-            @click="openNewModal">新增產品</button>
+            @click="openNewModal">新增產品</button> -->
         </div>
         <div v-if="Object.keys(currentItem)?.length > 0" class="flex flex-col justify-center p-2">
           <div class=" rounded mb-5">
@@ -158,8 +158,8 @@
         </div>
       </div>
     </div>
-    <order-modal class="editModal" ref="editModal" :currentItem="currentItem"
-      @update-product="editAdminShown" @add-product="addAdminShown" />
+    <!-- <order-modal class="editModal" ref="editModal" :currentItem="currentItem"
+      @update-product="editAdminShown" @add-product="addAdminShown" /> -->
     <info-modal class="infoModal" ref="infoModal" :content="messageContent" @delete-product="deleteAdminShown"
       @hide-modal="hideInfoModal" />
   </main>

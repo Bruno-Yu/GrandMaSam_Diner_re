@@ -36,7 +36,7 @@
                       {{ item.author }}
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      {{ item.create_at }}
+                      {{ dayjs(item.create_at * 1000).format('YYYY/MM/DD') }}
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       <div class="flex justify-center">
@@ -153,58 +153,34 @@
   </main>
 </template>
 
-<script>
+<script  setup>
 import { useApiModal } from '~~/composables/useApiModal';
 import useStore from '@/store';
 import { storeToRefs } from 'pinia';
+import dayjs from 'dayjs/esm/index.js';
 
 
-export default {
-  // components: { editModal, starRating },
-  setup() {
-    definePageMeta({
-      layout: 'back-layout'
-    });
-    const { userStore } = useStore();
-    const { adminShown, currentItem, messageContent } = storeToRefs(userStore);
-    const { pagination, editModal, infoModal, hideInfoModal, isNew, openDeleteModal, openModal, hideModal, openNewModal, editAdminShown, addAdminShown, getAdminShown, getAdminSingleShown, deleteAdminShown } = useApiModal();
-    // function editArticle(data) {
-    //   editAdminShown(data);
-    // }
-    function check(item) {
-      userStore.currentItem = JSON.parse(JSON.stringify(item))
-    }
-    function editBtn(item) {
-      getAdminSingleShown(item.id);
-      openModal(userStore.currentItem);
-    }
-
-    onMounted(() => {
-      getAdminShown();
-    });
-    return {
-      adminShown,
-      currentItem,
-      editModal,
-      // editArticle,
-      infoModal,
-      messageContent,
-      openModal,
-      hideModal,
-      openNewModal,
-      openDeleteModal,
-      hideInfoModal,
-      isNew,
-      getAdminShown,
-      editAdminShown,
-      addAdminShown,
-      deleteAdminShown,
-      pagination,
-      check,
-      editBtn,
-    };
-  }
+definePageMeta({
+  layout: 'back-layout'
+});
+const { userStore } = useStore();
+const { adminShown, currentItem, messageContent } = storeToRefs(userStore);
+const { pagination, editModal, infoModal, hideInfoModal, isNew, openDeleteModal, openModal, hideModal, openNewModal, editAdminShown, addAdminShown, getAdminShown, getAdminSingleShown, deleteAdminShown } = useApiModal();
+// function editArticle(data) {
+//   editAdminShown(data);
+// }
+function check(item) {
+  userStore.currentItem = JSON.parse(JSON.stringify(item))
 }
+function editBtn(item) {
+  getAdminSingleShown(item.id);
+  openModal(userStore.currentItem);
+}
+
+onMounted(() => {
+  getAdminShown();
+});
+
 
 
 </script>

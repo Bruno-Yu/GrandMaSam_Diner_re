@@ -59,7 +59,7 @@ export default defineNuxtConfig({
   // buildModules: ['@nuxtjs/dotenv'],
 
   plugins: [
-    '@/plugins/vee-validate.js', '@/plugins/font-awesome-icon.js', '@/plugins/star-rating.js',  '@/plugins/ck-editor.js'
+    '@/plugins/vee-validate.js', '@/plugins/font-awesome-icon.js', '@/plugins/star-rating.js',  '@/plugins/ck-editor.js',  '@/plugins/echart.js'
   ],
   // vite: {
   //   plugins: [

@@ -36,7 +36,7 @@
                       {{ item.percent }} %
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      {{ dayjs(item.due_date).format('YYYY-MM-DD') }}
+                      {{ dayjs(item.due_date * 1000).format('YYYY/MM/DD') }}
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       <div class="flex justify-center">
