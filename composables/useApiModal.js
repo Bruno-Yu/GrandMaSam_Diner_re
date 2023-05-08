@@ -155,6 +155,7 @@ export const useApiModal = () => {
     const res = await atrApi.logOut()
     if (res.success) {
       loaderHide()
+      localStorage.removeItem('rawOrderData');
       navigateTo({ path })
     } else {
       catchErrorModal( res.response.data.message);
