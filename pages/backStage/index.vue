@@ -5,56 +5,55 @@
       <!-- 逐月收入表 & 累積收入表-->
       <div ref="revenueChart" class="revenueChartDom h-[500px]"></div>
     </div>
-    <div class="grid grid-cols-2">
+    <div class="grid grid-cols-3">
   <!-- 使用者購買排名 ( 累積 )  -->
-  <div>
-    
+  <div>    
     <section
-  class="rounded-md p-2 text-center shadow-lg md:text-left"
->
-<!-- 單張卡片 -->
-  
-    <div class="max-w-3xl border">
-      <div
-        class="m-4 block rounded-lg bg-white p-6 shadow-lg dark:bg-neutral-800 dark:shadow-black/20">
-        <!--Testimonial-->
-        <div class="md:flex md:flex-row">
+      class="rounded-md p-2 text-center shadow-lg md:text-left h-[330px] overflow-y-scroll"
+      >
+      <div class="max-w-3xl border min-h-[310px]">
+      <!-- 單張卡片 -->
+        <template v-for="(client, index)  in clientSalesData"  :key="index" >
           <div
-            class="mx-auto mb-6 flex items-center justify-center md:mx-0 w-12 lg:mb-0">
-            <!-- <img
-              src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20%2810%29.jpg"
-              class="rounded-full shadow-md dark:shadow-black/30"
-              alt="woman avatar" /> -->
-              <i class="bi bi-person-circle block text-4xl"></i>
-          </div>
-          <div class="md:ml-6 grid grid-cols-2 gap-6">
-            <div>
-              <p
-                class="mb-2 text-xl font-semibold text-neutral-800 dark:text-neutral-200">
-                Product manager
-              </p>
-              <p
-                class="mb-0 font-semibold text-neutral-500 dark:text-neutral-400">
-                No. 1
-              </p>
-            </div>
-            <div class="grid grid-cols-2 gap-2">
-              <div class="flex flex-col items-center">
-                <p class="text-sm font-bold mb-2 text-center"> All <br> Amount</p>
-                <p class="text-xs">123</p>
+            class="m-4 block rounded-lg bg-white p-6 shadow border dark:bg-neutral-800 dark:shadow-black/20" >
+            <!--Testimonial-->
+            <div class="md:flex md:flex-row">
+              <div
+                class="mx-auto mb-6 flex items-center justify-center md:mx-0 w-12 lg:mb-0">
+                  <i class="bi bi-person-circle block text-4xl mb-5"></i>
               </div>
-              <div class="flex flex-col items-center">
-                <p class="text-sm font-bold  mb-2 text-center"> This <br> Month</p>
-                <p class="text-xs">123</p>
+              <div class="md:ml-6 flex justify-between gap-6 w-full">
+                <div>
+                  <p
+                    class="mb-2 text-xl font-semibold text-neutral-800 dark:text-neutral-200">
+                    {{ client.userName }}
+                  </p>
+                  <p
+                    class="mb-0 font-semibold text-neutral-500 dark:text-neutral-400">
+                    No. {{ index + 1 }}
+                  </p>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="flex flex-col items-center rounded-full border h-20 w-20 pt-1.5">
+                    <p class="text-sm font-bold mb-2 text-center"> All <br> Amount</p>
+                    <p class="text-xs">{{ client.total }}</p>
+                  </div>
+                  <div class="flex flex-col items-center  rounded-full border h-20 w-20 pt-1.5">
+                    <p class="text-sm font-bold  mb-2 text-center"> This <br> Month</p>
+                    <p class="text-xs">{{ client.thisMonthSalesData }}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </template>
         </div>
-      </div>
-    </div>
-
-  </section>
+      </section>
   </div>
+  <!-- 每月各類別計量圓餅圖 -->
+    <div class="col-span-2">
+      <div class="categoriesChart"></div>
+    </div>
 </div>
 
     <!-- 產品種類購買排名 ( 累積 ) -->
@@ -282,10 +281,106 @@ function getClientSalesData() {
         }
       })
     })
+    clientSalesData.value.sort((a, b) => b.total - a.total)
   }
-  console.log('clientSalesData', clientSalesData.value);
 }
 
+const categoriesChart = ref(null);
+
+// 不同 categories 產品銷收比例 今年累計與 全部累計
+function getCategories() {
+  if (orders.value && orders.value?.length) {
+    console.log('orders.value', orders.value);
+
+  }
+}
+
+function setPieChartOption() {
+  return {
+    title: {
+      text: 'Nightingale Chart',
+      subtext: 'Fake Data',
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'item',
+      formatter: '{a} <br/>{b} : {c} ({d}%)'
+    },
+    legend: {
+      left: 'center',
+      top: 'bottom',
+      data: [
+        'rose1',
+        'rose2',
+        'rose3',
+        'rose4',
+        'rose5',
+        'rose6',
+        'rose7',
+        'rose8'
+      ]
+    },
+    toolbox: {
+      show: true,
+      feature: {
+        mark: { show: true },
+        dataView: { show: true, readOnly: false },
+        restore: { show: true },
+        saveAsImage: { show: true }
+      }
+    },
+    series: [
+      {
+        name: 'Radius Mode',
+        type: 'pie',
+        radius: [20, 140],
+        center: ['25%', '50%'],
+        roseType: 'radius',
+        itemStyle: {
+          borderRadius: 5
+        },
+        label: {
+          show: false
+        },
+        emphasis: {
+          label: {
+            show: true
+          }
+        },
+        data: [
+          { value: 40, name: 'rose 1' },
+          { value: 33, name: 'rose 2' },
+          { value: 28, name: 'rose 3' },
+          { value: 22, name: 'rose 4' },
+          { value: 20, name: 'rose 5' },
+          { value: 15, name: 'rose 6' },
+          { value: 12, name: 'rose 7' },
+          { value: 10, name: 'rose 8' }
+        ]
+      },
+      {
+        name: 'Area Mode',
+        type: 'pie',
+        radius: [20, 140],
+        center: ['75%', '50%'],
+        roseType: 'area',
+        itemStyle: {
+          borderRadius: 5
+        },
+        data: [
+          { value: 30, name: 'rose 1' },
+          { value: 28, name: 'rose 2' },
+          { value: 26, name: 'rose 3' },
+          { value: 24, name: 'rose 4' },
+          { value: 22, name: 'rose 5' },
+          { value: 20, name: 'rose 6' },
+          { value: 18, name: 'rose 7' },
+          { value: 16, name: 'rose 8' }
+        ]
+      }
+    ]
+  }
+}
 
 onMounted(() => {
 
@@ -296,9 +391,11 @@ onMounted(() => {
     preYearCumulativeData.value = getCumulativeRevenue(preYearMonthlyData.value, false);
     generateChartData();
     getClientSalesData();
+    getCategories();
   } else {
     getAllOrders();
     getClientSalesData();
+    getCategories();
   }
 })
 
