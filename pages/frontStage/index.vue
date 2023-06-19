@@ -9,6 +9,7 @@
           <h2 class="text-white text-7xl font-bold italic whitespace-nowrap"> 獻出你的錢包 !!! </h2>
           <h3 class="text-white text-3xl font-bold italic whitespace-nowrap"> 讓台灣再次偉大 !!!!!! </h3>
           <button type="button"
+          @click=" navigateTo({ path: '/frontStage/productsView' })"
             class="inline-block rounded bg-amber-400 p-1 mt-5 uppercase leading-normal shadow-[0_4px_9px_-4px_#e4a11b] transition duration-150 ease-in-out hover:bg-amber-500 hover:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)] focus:bg-warning-600 focus:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)] focus:outline-none focus:ring-0 active:bg-warning-700 active:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)]">
             <span class="block text-2xl italic font-extrabold border border-gray-200 px-5 pt-1.5 pb-1  animate-pulse ">馬上行動</span>
           </button>

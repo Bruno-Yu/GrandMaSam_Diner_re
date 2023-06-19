@@ -25,7 +25,7 @@
           navbar navbar-expand-lg navbar-light
           z-50
           ">
-      <div class="container-fluid w-full flex flex-wrap items-center px-6">
+      <div class="container-fluid w-full flex flex-wrap items-center px-6  bg-white">
         <button class="
               navbar-toggler
               text-gray-500
@@ -55,7 +55,7 @@
                   mr-auto
                 " to="/frontStage" exact-active-class="no-active" >
             <p class=" text-gray-900 text-3xl font-serif">GRANDMA SAM DINER</p>
-            <p class=" text-gray-900 text-base text-center font-serif"> LET MAKE AMERICA GREAT AGAIN</p>
+            <p class=" text-gray-900 text-base lg:text-center font-serif"> LET MAKE AMERICA GREAT AGAIN</p>
           </NuxtLink>
           <!-- Left links -->
           <ul class="navbar-nav flex flex-col pl-0 list-style-none ms-auto">
@@ -110,17 +110,10 @@
     </div>
     <!-- footer -->
     <footer class="bg-black py-10">
-      <NuxtLink class=" 
-                                                                                block
-                                                                                my-2
-                                                                                lg:mt-0
-                                                                                mr-auto
-                                                                              " to="/" exact-active-class="no-active">
-        <p class="text-amber-400 text-3xl
-                                                                                font-serif text-center">GRANDMA SAM DINER
+      <NuxtLink class="block my-2 lg:mt-0 mr-auto" to="/" exact-active-class="no-active">
+        <p class="text-amber-400 text-3xl font-serif text-center">GRANDMA SAM DINER
         </p>
-        <p class="text-amber-400 text-base text-center
-                                                                                font-serif"> LET MAKE AMERICA GREAT AGAIN
+        <p class="text-amber-400 text-base text-center font-serif"> LET MAKE AMERICA GREAT AGAIN
         </p>
       </NuxtLink>
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -157,7 +150,7 @@
             </ul>
           </div>
         </div>
-        <div class="mb-2">
+        <div class="mb-2 px-2">
           <h5 class="font-serif font-bold text-center text-white mb-2">關於作品</h5>
           <div class="flex flex-col justify-center item-center  border border-white max-w-md mx-auto px-2 py-4">
             <p class="text-sm text-white mb-2">此網頁並非商業使用，僅作為個人學習、娛樂以及六角作業繳交使用，若需要引用或作為商業用途，請先諮詢六角學院</p>

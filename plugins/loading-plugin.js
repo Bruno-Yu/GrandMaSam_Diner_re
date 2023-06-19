@@ -1,4 +1,4 @@
-import { LoadingPlugin } from 'vue-loading-overlay'
+import { LoadingPlugin, Component } from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 
 export default defineNuxtPlugin(({ vueApp }) => {
@@ -6,4 +6,5 @@ export default defineNuxtPlugin(({ vueApp }) => {
   vueApp.use(LoadingPlugin, {
     color: '#FF0000'
   })
+    vueApp.component('loading',Component)
 })

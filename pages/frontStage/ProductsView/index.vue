@@ -3,13 +3,13 @@
     <!-- headings -->
     <header class="-mx-4">
       <!-- Background image -->
-      <div class="bg-amber-400 grid grid-cols-2 gap-4 pb-1">
-        <div class="flex flex-col pt-28 px-20">
-          <h2 class="text-4xl font-bold text-stone-700 mb-4">產品/服務列表</h2>
-          <h3 class="text-2xl  font-bold text-stone-700 mb-4">廚師介紹</h3>
-          <p class="leading-loose  font-bold">五腥出品，來自嘉義明雄的米其林廚師帶來的味道<br>而每份他所帶來的食物，都有屬於食材自己的故事<br>只要您用心品嘗，一定能嚐出嘉明( 嘉義民雄 )的味道</p>
+      <div class="bg-amber-400 lg:grid grid-cols-2 lg:gap-4 pb-1">
+        <div class="flex flex-col pt-28 px-10 lg:px-20">
+          <h2 class="text-4xl font-bold text-stone-700 mb-4">產品/服務列表 <br class="hidden lg:block" /> <span class=" text-2xl  font-bold text-stone-700 mb-4">廚師介紹</span></h2>
+          
+          <p class="leading-loose  font-bold">五腥出品，來自嘉義明雄的米其林廚師帶來的味道<br class="hidden lg:inline" /> <span class="lg:hidden">，</span>而每份他所帶來的食物，都有屬於食材自己的故事<br  class="hidden lg:inline" /> <span class="lg:hidden">，</span>只要您用心品嘗，一定能嚐出嘉明( 嘉義民雄 )的味道</p>
         </div>
-        <img class="block w-full h-[450px] object-cover"  src="@/assets/images/productsView_banner.webp" alt="productsView_banner">
+        <img class="hidden lg:block w-full h-[450px] object-cover"  src="@/assets/images/productsView_banner.webp" alt="productsView_banner">
       </div>
       <!-- 選項按鈕 -->
       <!-- swiper -->
@@ -23,8 +23,8 @@
               :navigation="true"
               :freeMode="true"
               :pagination="{
-                  clickable: true,
-                }"
+                clickable: true,
+              }"
               :modules="modules"
               class="mySwiper"
             >
